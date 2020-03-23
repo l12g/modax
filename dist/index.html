@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <span onclick="show()">show</span>
+
+    <svg class="u-spin" width='30' height='30'>
+        <circle stroke-dasharray='20, 30' stroke='red' cx="50%" cy="50%" r="30%" fill="transparent"></circle>
+    </svg>
+    <div contenteditable="true"></div>
+    <span class="modal-x__circle">
+        <span class="a"></span>
+    </span>
+    <script src="modal-x.js"></script>
+    <script>
+        function show() {
+            modalx('x').loading(0, '加载中').show();
+            return
+            modalx('id')
+                .title('提示')
+                .content('xxx')
+                .cancel(false)
+                .ok(false)
+                .action({
+                    text: '跳过',
+                    type: 'ok',
+                    click: () => new Promise(r => {
+                        // setTimeout(r, 1000);
+                    })
+                })
+                .action({
+                    text: '知道了',
+                    type: 'cancel',
+                })
+                .ok(() => {
+                    return new Promise(r => {
+                        setTimeout(r, 1000);
+                    })
+                })
+                .show();
+            return;
+            // modalx().height(699).src('http://localhost/new-qos/backend/web/index.php').show();
+            // return;
+            // modalx().toast('hello').show();
+            // return
+            modalx('x').loading(0, '加载中...').show();
+            return
+            setTimeout(() => {
+                modalx()
+                    .title('提示！')
+                    .width(500)
+                    .content('<p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p>')
+                    .ok('退出', () => {
+                        return new Promise(r => {
+                            setTimeout(r, 1000);
+                        });
+                    })
+                    .title('请输入')
+                    .prompt({
+                        placeholder: '名称',
+                        // multline:true
+                    })
+                    .show(true);
+
+            }, 1000);
+        }
+
+
+    </script>
+</body>
+
+</html>
