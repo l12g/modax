@@ -16,3 +16,14 @@ export function isBoolean(val) {
 export function isArray(val) {
     return Array.isArray(val);
 }
+export function isUnDef(val) {
+    return typeof val === 'undefined';
+}
+export function genEachKey() {
+    return Math.random().toString(36).slice(-8);
+}
+export function toCamenCase(val) {
+    return val.replace(/-\w/g, $v => {
+        return $v[1].toUpperCase();
+    })
+}

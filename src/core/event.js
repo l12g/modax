@@ -1,36 +1,59 @@
-import { isFunction, isPromise } from './utils';
+import { isFunction, isPromise, isBoolean, isString, isUnDef } from './utils';
+import { close, last } from '../manager';
 const key = '__mx-evt';
-function handleAction(index) {
-    const { type, click } = this._actions[index];
-    if (isFunction(click)) {
-        const res = click();
-        if (isPromise(res)) {
-            this._actions[index].loading = true;
-            res.then(() => {
-                this.close();
-                this._actions[index].loading = false;
-            }, () => {
-                this._actions[index].loading = false;
-            });
-        } else {
-            (type === 'cancel' || type === 'ok') && this.close();
+
+function handleAction(el) {
+    const { _index, _onclick } = el;
+    if (!isFunction(_onclick)) {
+        return
+    }
+    let action = isUnDef(_index) ? null : this._actions[_index];
+    const res = _onclick.call(this, this._inputVal);
+
+
+    if (isPromise(res)) {
+        if (action) {
+            action.loading = true;
         }
+        res.then(isClose => {
+            if (isBoolean(isClose)) {
+                isClose && close(this._id);
+            } else {
+                close(this._id);
+            }
+        }, () => {
+            if (action) {
+                action.loading = false;
+            }
+        });
     } else {
-        (type === 'cancel' || type === 'ok') && this.close();
+        isBoolean(res) && res && close(this._id);
     }
     this._actions = [...this._actions];
 }
 
-export function initEvent() {
+
+document.addEventListener('keydown', evt => {
+    const modal = last();
+
+    if (evt.keyCode === 27 && modal && modal._escClose && modal._isShow) {
+        close(modal._id);
+    }
+});
+
+
+export default function initEvent() {
     const { _el } = this;
     if (this[key]) {
         return;
     }
     const handleClick = evt => {
-        evt.stopPropagation()
-        if (evt.target.classList.contains('mx__btn')) {
-            handleAction.call(this, +evt.target.dataset.index);
+        evt.stopPropagation();
+        if (evt.target.className === 'mx-overlay' && this._shadowClose) {
+            close(this._id);
+            return;
         }
+        handleAction.call(this, evt.target);
     }
     const handleAniend = evt => {
         if (evt.target === this._el) {

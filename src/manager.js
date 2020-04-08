@@ -1,32 +1,37 @@
-import { Modalx } from './core/instance';
-const stack = [];
+import Modalx from './core/instance';
+import { isString, isNumber } from './core/utils';
 
-document.addEventListener('keydown', evt => {
-    if (stack.length === 0) {
-        return
-    }
-    const last = stack[stack.length - 1];
-    evt.keyCode === 27 && last._esc && last._isShow && close(last._id);
-});
+export const stack = [];
+export function create(id) {
+    const mod = new Modalx(id);
+    stack.push(mod);
+    return mod;
+}
 
-export function create() {
-    let modal = new Modalx();
-    stack.push(modal);
-    return modal;
+export function first() {
+    return stack[0];
+}
+export function last() {
+    return stack[stack.length - 1];
 }
 export function close(id) {
-    let len = stack.length;
-    if (len === 0) {
+    if (!stack.length === 0) {
         return;
     }
-    if (!id) {
-        while (len--) {
-            stack[len].close();
+    let i = stack.length;
+    const hasId = typeof id !== 'undefined';
+    if (hasId) {
+        const _id = isString(id) || isNumber(id) ? id : id._id;
+        while (i--) {
+            if (_id === stack[i]._id) {
+                stack[i].close();
+                stack.splice(i, 1);
+            }
         }
-        stack.splice(0, Number.MAX_VALUE);
-        return;
+    } else {
+        while (i--) {
+            stack[i].close();
+        }
+        stack.length = 0;
     }
-    const find = stack.findIndex(o => o._id === id);
-
-    find >= 0 && stack[find].close() && stack.splice(find, 1);
 }
