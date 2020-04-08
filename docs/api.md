@@ -10,21 +10,6 @@
 modalx('my modal')
 ```
 
-### modalx.defaults
-
-弹层的默认值
-
-* `okText` 确定按钮文字，默认 `确定` 
-* `cancelText` 取消按钮的文字，默认 `取消` 
-* `titleText` 默认的标题文字，默认 `提示` 
-* `loadingText` 默认的加载文案，默认 `''` 
-* `toastTime` 默认消息时长，默认 `3000` 
-* `width` 默认弹层宽度，默认 `400` 
-
-``` js
-modalx.defaults.okText = '确定';
-modalx.defaults.cancelText = '取消';
-```
 
 ### modalx.close(id?:string)
 
@@ -38,6 +23,33 @@ modalx('m1').show();
 modalx.close('m1');
 // 关闭所有弹层
 modalx.close();
+```
+
+### modalx.plugin(name:String,plugin:Function,opt?:Object)
+
+* `name` 插件名称
+* `plugin` 插件逻辑
+* `opt.template` 插件使用的html模板
+* `opt.data` 插件相关数据
+
+添加一个插件
+
+
+### modalx.defaults
+
+弹层的默认值
+
+* `okText` 确定按钮文字，默认 `确定` 
+* `cancelText` 取消按钮的文字，默认 `取消` 
+* `titleText` 默认的标题文字，默认 `提示` 
+* `loadingText` 默认的加载文案，默认 `''` 
+* `toastTime` 默认消息时长，默认 `3000` 
+* `width` 默认弹层宽度，默认 `400` 
+* `shadowColor` 遮罩颜色，默认 `rgba(0,0,0,.5)`
+
+``` js
+modalx.defaults.okText = '确定';
+modalx.defaults.cancelText = '取消';
 ```
 
 ## 实例方法
@@ -202,6 +214,18 @@ modalx()
 const modal = modalx().show();
 modal.close();
 ```
+
+### .prompt(opt:Object)
+
+
+* `opt.placeholder` 占位符
+* `opt.multline` 是否支持多行输入
+* `opt.type` 同 `input` 的 `type` 
+* `opt.rows` 同 `textarea` 的 `rows` 
+* `opt.value` 输入框默认值
+
+显示一个输入层
+
 
 ### .toast(val: String, ms: Number=3000)
 

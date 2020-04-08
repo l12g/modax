@@ -7,4 +7,4 @@
 * 零依赖、轻量级 (~13kb gzipped)
 
 [GitHub](https://github.com/oklxq/modal-x)
-[开始](quick-start)
+[开始](intr)

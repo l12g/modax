@@ -1,2 +1,5 @@
-* [开始](quick-start)
+* [介绍](intr)
+* [快速开始](quick-start)
+* [示例用法](adv)
+* [插件](plugin)
 * [API](api)
