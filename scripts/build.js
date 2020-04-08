@@ -1,6 +1,13 @@
 const cp = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const webpack = require('webpack');
 
-cp.execSync('webpack --config ' + path.resolve(process.cwd(), 'webpack.config.js'));
-fs.copyFileSync('dist/modal-x.js', 'docs/modal-x.js');
+const webpackConfig = require('../config/webpack');
+webpack(webpackConfig, (err, stats) => {
+    if (err) {
+        console.log(err);
+        return
+    }
+    fs.copyFileSync('dist/modal-x.js', 'docs/modal-x.js');
+})
