@@ -37,8 +37,8 @@ function reactive(data, key, value) {
 const closeHandler = () => true;
 export default function initData() {
     const ins = this;
-    const okAction = { text: '确定', type: 'ok', click: closeHandler, key: genEachKey(), visible: true };
-    const cancelAction = { text: '取消', type: 'cancel', click: closeHandler, key: genEachKey(), visible: true };
+    const okAction = { text: defaults.okText, type: 'ok', click: closeHandler, key: genEachKey(), visible: true };
+    const cancelAction = { text: defaults.cancelText, type: 'cancel', click: closeHandler, key: genEachKey(), visible: true };
     const data = this._data = {
         title: defaults.titleText,
         content: '',
@@ -47,6 +47,8 @@ export default function initData() {
         prompt: null,
         width: defaults.width,
         height: defaults.height,
+        icon: null,
+        iconColor: null,
         actions: [
             okAction,
             cancelAction

@@ -8,8 +8,11 @@
 </head>
 
 <body>
+
+    <span class="mx-icon mx-icon__alert"></span>
+    <span class="mx-icon mx-icon__warning"></span>
     <button onclick="show()">show</button>
-    <button onclick="modalx().loading(1000,'loading...').show()">loading</button>
+    <button onclick="modalx().loading(10000000,'loading...').show()">loading</button>
     <button onclick="modalx().toast(123).show()">toast</button>
 
     <script src="modal-x.js"></script>
@@ -28,13 +31,9 @@
 
         function show() {
             modalx()
-                .title('提示！')
+                .icon('alert','red')
                 // .width('80%')
-                .action({
-                    text: '跳过',
-                    type: 'danger',
-                    click: () => true
-                })
+                .title('xxx')
                 .shadowClose(true)
                 .shadowType('dark')
                 .cancel(() => {
@@ -44,14 +43,7 @@
                     setTimeout(r, 1000);
 
                 }))
-                .title('请输入')
-                .prompt({
-                    placeholder: '名称',
-                    value: '12dd',
-                    type: 'number',
-                    multline: true,
-                    // multline:true
-                })
+                .content('是否退出登录？')
                 .show(true);
 
             return

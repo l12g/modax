@@ -3,8 +3,10 @@ import Modalx from './instance';
 import promptPlugin from '../plugins/prompt';
 import * as loadingPlugin from '../plugins/loading';
 import * as toastPlugin from '../plugins/toast';
+import successPlugin from '../plugins/success';
 import { parse } from '../core/node';
 import { loading } from '../core/html';
+
 
 
 const installedPlugins = Modalx.prototype.plugins = {};
@@ -19,7 +21,7 @@ export default function addPlugin(pluginName, plugin, pluginOpt = {}) {
     }
     const { template, data, container } = pluginOpt;
 
-    Modalx.prototype[pluginName] = function() {
+    Modalx.prototype[pluginName] = function () {
         if (data) {
             this._data = data;
         }
@@ -44,3 +46,4 @@ addPlugin('loading', loadingPlugin.plugin, {
 addPlugin('toast', toastPlugin.plugin, {
     template: toastPlugin.template
 });
+addPlugin('success', successPlugin);

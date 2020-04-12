@@ -33,6 +33,16 @@ module.exports = {
             {
                 test: /\.ts$/,
                 use: 'ts-loader'
+            },
+            {
+                test: /\.svg$/,
+                use: {
+                    loader: 'svg-inline-loader',
+                    options: {
+                        removeSVGTagAttrs: false
+                    }
+                },
+
             }
         ]
     },

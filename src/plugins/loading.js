@@ -12,8 +12,8 @@ export function plugin(ms, title) {
 }
 
 export const template = `
-<div class='mx__loading-wrapper'>
-    <div class='mx__loading'><span/></div>
+<div class='mx-loading-wrapper'>
+    <div class='mx-loading'><span/></div>
     <span data-visible='title' data-text='title'></span>
 </div>
 `

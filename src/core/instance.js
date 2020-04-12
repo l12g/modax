@@ -1,9 +1,11 @@
-import { isFunction, isBoolean, isNumber } from './utils';
+import { isFunction, isBoolean, isNumber, isUnDef } from './utils';
 import { close } from '../manager';
 import initNode, { patch } from './node';
 import initEvent from './event';
 import defaults from './defaults';
 import initData from './data';
+import icon from '../icon/index';
+
 
 let uid = 0;
 
@@ -41,6 +43,15 @@ export default class Modalx {
         this.escClose(true);
         this.shadowClose(false);
         this.shadowType(defaults.shadowType);
+    }
+    icon(type, color = '#158cba') {
+        if (isUnDef(icon[type])) {
+            console.warn('unsupported icon type');
+            return
+        }
+        this._icon = icon[type];
+        this._iconColor = color;
+        return this;
     }
     /**
      * 背景颜色 dark | light
@@ -139,6 +150,7 @@ export default class Modalx {
      * @param {*} closeOther 
      */
     show(closeOther) {
+        console.log(this._data);
         this._container.appendChild(this._el);
         setTimeout(() => {
             patch(this._el, this._node, this._data);

@@ -68,6 +68,18 @@ modalx()
 
 <a href='javascript:; ' onclick="demo.asyncModal()">试一试</a>
 
+## 显示图标
+
+使用`.icon`方法定义弹层的图标和图标颜色
+
+```js
+modalx()
+    .icon('alert')
+    .content('图标')
+    .show();
+```
+<a href='javascript:; ' onclick="modalx().icon('alert').content('图标').show()">试一试</a>
+
 ## 输入框
 
 使用 `.prompt` 可以让弹层显示输入框，该方法接受一个g配置参数，[查看详情](api?id=actionopt-object)：

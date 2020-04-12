@@ -23,7 +23,7 @@ export function genEachKey() {
     return Math.random().toString(36).slice(-8);
 }
 export function toCamenCase(val) {
-    return val.replace(/-\w/g, $v => {
+    return val.replace(/[-_]\w/g, $v => {
         return $v[1].toUpperCase();
     })
 }

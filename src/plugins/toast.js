@@ -21,14 +21,14 @@ export function plugin(text, ms = defaults.toastTime) {
 }
 
 export const template = `<div class='mx-toast__content'>
-    <span data-text='title'></span>
+    <span _text='title'></span>
     <ul class='mx-toast__btns'>
         <li class='mx-toast__btn' 
         on-click='item.click'
-        data-each='item of actions' 
-        data-text='item.text' 
-        data-visible='item.visible'
-        data-key='item.key'></li>
+        _each='item of actions' 
+        _text='item.text' 
+        _visible='item.visible'
+        _key='item.key'></li>
     </ul>
 </div>
 `
