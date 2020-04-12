@@ -1,79 +1,10 @@
 @import "./animation";
+@import "./overlay";
+@import "./toast";
+@import "./loading";
+@import "./vars";
+
 $prefix: mx;
-$color: #158cba;
-.#{$prefix}-overlay {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 999;
-    background-color: rgba(0, 0, 0, 0.5);
-    text-align: center;
-    vertical-align: middle;
-    overflow: auto;
-    opacity: 0;
-    transform-origin: center;
-    animation: #{$prefix}-fade-in 0.2s forwards ease-out;
-    &::after {
-        content: "";
-        vertical-align: middle;
-        display: inline-block;
-        width: 0;
-        height: 100%;
-    }
-}
-
-.#{$prefix}-toast-wrap {
-    position: fixed;
-    pointer-events: none;
-    top: 10px;
-    left: 0;
-    right: 0;
-    z-index: 999;
-}
-
-.#{$prefix}-toast {
-    text-align: center;
-    padding: 0.2rem 0;
-    overflow: hidden;
-    animation: mx-slide-down 0.2s;
-    @at-root &__content {
-        padding: 0.5rem 1rem;
-        background: lighten($color: #000, $amount: 50);
-        color: #fff;
-        border-radius: 2px;
-        display: inline-block;
-        box-sizing: border-box;
-    }
-    @at-root &__btns {
-        list-style: none;
-        margin: 0 0 0 0.5rem;
-        padding: 0 0 0 0.5rem;
-        display: inline-block;
-        border-left: solid 1px lighten(#000, 60);
-        &:empty {
-            display: none;
-        }
-        li {
-            color: darken(#fff, 20);
-            pointer-events: all;
-            margin-left: 0.1rem;
-            display: inline-block;
-            cursor: pointer;
-            line-height: 100%;
-            position: relative;
-            z-index: 2;
-            transform: scale(.85);
-            &:not(:last-child) {
-                margin-right: 0.2rem;
-            }
-            &:hover {
-                color: #fff;
-            }
-        }
-    }
-}
 
 .#{$prefix}--hide {
     animation: #{$prefix}-fade-out 0.2s forwards ease-in !important;
@@ -88,7 +19,7 @@ $color: #158cba;
     display: inline-flex;
     border-radius: 2px;
     text-align: left;
-    padding: 5px;
+    padding: 0.5rem;
     vertical-align: middle;
     animation: #{$prefix}-slide-down 0.1s forwards ease-out;
     position: relative;
@@ -100,16 +31,31 @@ $color: #158cba;
         flex-grow: 1;
     }
     @at-root &__content {
-        padding: 1rem;
+        padding: .8rem 1rem;
+        display: flex;
+        align-items: center;
+    }
+    @at-root &__content-icon {
+        width: auto;
+        margin-right: 1rem;
+        color: $color;
+        + .mx_content-raw {
+            padding-top: 12px;
+        }
+    }
+    @at-root &__content-raw {
+        flex: 1;
     }
     @at-root &__title {
         border-bottom: solid 1px darken($color: #fff, $amount: 5);
         padding: 0.5rem;
+        padding-top: 0;
         color: #888;
     }
     @at-root &__footer {
         border-top: solid 1px darken($color: #fff, $amount: 5);
         padding: 0.5rem;
+        padding-bottom: 0;
         text-align: right;
     }
     @at-root &__input {
@@ -128,9 +74,6 @@ $color: #158cba;
             font-weight: normal;
             padding: 5px 10px;
             min-height: 50px;
-            &:empty::before {
-                content: attr(data-placeholder);
-            }
         }
         &:focus {
             border-color: $color;
@@ -155,7 +98,7 @@ $color: #158cba;
         * {
             pointer-events: none;
         }
-        .mx__loading {
+        .mx-loading {
             margin-right: 5px;
             width: 0.8rem;
             height: 0.8rem;
@@ -201,54 +144,5 @@ $color: #158cba;
                 background-color: darken(#ff0039, 10);
             }
         }
-    }
-    @at-root &__loading-wrapper {
-        display: inline-block;
-        color: #888;
-        .mx__loading+span {
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-    }
-    @at-root &__loading {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        font-size: 0;
-        line-height: 0;
-        position: relative;
-        box-sizing: border-box;
-        animation: #{$prefix}-spin 1s infinite linear;
-        vertical-align: middle;
-        span {
-            transform: translateY(50%);
-            position: absolute;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-            box-sizing: border-box;
-            &::after {
-                box-sizing: border-box;
-                display: inline-block;
-                position: absolute;
-                content: "";
-                left: 0;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                border-radius: 50%;
-                border: solid 2px #888;
-                transform: translateY(-50%);
-            }
-        }
-    }
-    @at-root &__toast {
-        // pointer-events: none;
-    }
-    @at-root &__page {
-        width: 100%;
-        border: 0;
     }
 }
