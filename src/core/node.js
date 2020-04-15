@@ -6,7 +6,7 @@ import template from './html';
 const NODE_KEY_TYPES = ['object', 'string', 'array', 'boolean', 'number', 'function'];
 
 /**
- * 复制节点
+ * clone node
  * @param {*} node 
  */
 function cloneNode(node) {
@@ -44,7 +44,7 @@ function cloneNode(node) {
 }
 
 /**
- * 解析表达式中的变量
+ * parse varibles in expression
  * @param {String} exp 
  */
 function parseVal(exp) {
@@ -53,9 +53,16 @@ function parseVal(exp) {
         .match(/\w+/g);
 }
 /**
- * 执行表达式
- * @param {*} exp 表达式
- * @param {*} ctx 上下文
+ * parse loop expression
+ * @param {*} exp 
+ */
+function parseEachVal(exp) {
+    return exp.replace(/\s+/g, ' ').split(/\sof\s/);
+}
+/**
+ * run expression
+ * @param {*} exp expression
+ * @param {*} ctx context
  */
 function callExp(exp, ctx) {
     const vals = parseVal(exp);
@@ -75,9 +82,9 @@ function callExp(exp, ctx) {
 
 function patchArr(wrapper, node, ctx, parent) {
     const { each, key } = node.userAttrs;
-    const vals = each.replace(/\s+/g, ' ').split(/\sof\s/);
+    // 
+    const vals = parseEachVal(each);
     const list = ctx[vals[1]];
-    const doms = [];
 
     // empty wrapper
     let i = list.length;
@@ -94,7 +101,6 @@ function patchArr(wrapper, node, ctx, parent) {
         const _key = key ? callExp(key, _ctx) : i;
 
         const old = eachNodes[i];
-        const newNode = list[i];
         if (!old || _key !== old.key) {
             eachNodes[i] = cloneNode(node);
         }
@@ -108,7 +114,8 @@ function patchArr(wrapper, node, ctx, parent) {
     }
 }
 /**
- * 解析dom字符串为虚拟节点
+ * parse html 2 virtual node
+ * only first child supported
  * @param {*} domStr 
  */
 export function parse(domStr) {
@@ -118,12 +125,11 @@ export function parse(domStr) {
     if (!root) {
         return;
     }
-    const fn = (el, parentNode = null) => {
+    const fn = el => {
         const attrNames = el.getAttributeNames();
         const data = {
             tag: el.tagName.toLowerCase(),
-            staticClasses: [...el.classList],
-            staticText: el.textContent,
+            text: el.textContent,
             children: [],
             on: {},
             ns: /svg/g.test(el.namespaceURI),
@@ -140,8 +146,8 @@ export function parse(domStr) {
         handlers.forEach(o => {
             data.on[o.replace('on-', '')] = el.getAttribute(o);
         });
-        const chs = [...el.children];
-        for (let ch of chs) {
+        data.attrs['class'] = [...el.classList];
+        for (let ch of el.children) {
             data.children.push(fn(ch, data));
         }
         return data;
@@ -150,76 +156,79 @@ export function parse(domStr) {
 }
 
 /**
- * 将虚拟节点应用到dom上
+ * patch virtual node to dom tree
  * @param {HTMLElement} wrapper 
  * @param {Object} node 
  * @param {Object} ctx 
  * @param {Object} parent 
  */
 export function patch(wrapper, node, ctx, parent) {
-    const { _el, _index, tag, staticClasses, on, attrs = {}, userAttrs = {} } = node;
+    const { _el, _index, tag, staticClasses, on, attrs, userAttrs } = node;
+    // patch array 
     if (userAttrs.each) {
         patchArr(wrapper, node, ctx, parent);
         return;
     }
+
+    // skip invisible node
     if (isString(userAttrs.visible) && userAttrs.visible && !callExp(userAttrs.visible, ctx)) {
         return;
     }
+    // svg support
     const crefn = document[node.ns ? 'createElementNS' : 'createElement'];
     const args = [node.ns ? 'http://www.w3.org/2000/svg' : false, tag].filter(Boolean);
     const el = node._el = _el || crefn.apply(document, args);
-    if (!el.parentElement || el.parentElement !== wrapper) {
-        wrapper.appendChild(el);
-    }
-    for (let k in attrs) {
-        el.setAttribute(k, attrs[k]);
-    }
-    const classList = staticClasses.slice();
 
-    for (let k in userAttrs) {
-        if (k === 'text') {
-            el.innerHTML = callExp(userAttrs[k], ctx);
+
+    let classList = [];
+
+    for (const [key, val] of Object.entries(attrs)) {
+        if (key === 'class') {
+            classList = val.slice();
+        } else {
+            el.setAttribute(key, val);
         }
-        if (k === 'class') {
+    }
+
+    for (const [key, val] of Object.entries(userAttrs)) {
+        if (key === 'text') {
+            el.innerHTML = callExp(val, ctx);
+        }
+        if (key === 'class') {
             const r = callExp(userAttrs[k], ctx);
-            if (isString(r)) {
-                classList.push(...r.split(' '));
-            }
-            if (isArray(r)) {
-                classList.push(...r.filter(Boolean));
-            }
+            isString(r) && classList.push(...r.split(' '));
+            isArray(r) && classList.push(...r.filter(Boolean));
         }
-        if (k === 'style') {
+        if (key === 'style') {
             const styleObj = callExp(userAttrs[k], ctx);
-            for (let k in styleObj) {
-                el.style[k] = styleObj[k];
+            for (const [k, v] of Object.entries(styleObj)) {
+                el.style[k] = v;
             }
         }
     }
+    // patch children if no text defined
     if (!userAttrs.text) {
-        el.innerText = node.staticText.replace(/\s/g, '');
+        // static text
+        el.innerText = node.text.replace(/\s/g, '');
         for (let i = 0, len = node.children.length; i < len; i++) {
             patch(el, node.children[i], ctx, node);
         }
     }
-    if (classList.length) {
-        el.setAttribute('class', classList.join(' '));
-    }
+    classList.length && el.setAttribute('class', classList.join(' '));
 
-
-    for (let key in on) {
-
+    for (const key in on) {
         const defaultHandler = ctx.handlers[on[key]];
         if (key === 'click') {
             // proxy click event
-            el['_on' + key] = defaultHandler || callExp(on[key], ctx);
+            el['_on' + key] = callExp(on[key], ctx) || defaultHandler;
         } else {
             el['on' + key] = defaultHandler;
         }
     }
     el._index = _index;
-
-
+    if (!el.parentElement || el.parentElement !== wrapper) {
+        wrapper.appendChild(el);
+    }
 }
 
 

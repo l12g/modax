@@ -12,14 +12,15 @@
     <span class="mx-icon mx-icon__alert"></span>
     <span class="mx-icon mx-icon__warning"></span>
     <button onclick="show()">show</button>
-    <button onclick="modalx().loading(10000000,'loading...').show()">loading</button>
+    <button onclick="modalx().loading(10000000).title('please wait...').show()">loading</button>
     <button onclick="modalx().toast(123).show()">toast</button>
 
     <script src="modal-x.js"></script>
     <script>
-        modalx.plugin('test', function() {
+        modalx.plugin('test', function () {
             setTimeout(() => {
-                modalx.close(this._id);
+                // this.close();
+                modalx.close(this);
             }, 1000);
         }, {
             template: '<h1>hello plugin</h1>',
@@ -31,7 +32,7 @@
 
         function show() {
             modalx()
-                .icon('alert','red')
+                .icon('alert', 'red')
                 // .width('80%')
                 .title('提示')
                 .shadowClose(true)
@@ -39,10 +40,11 @@
                 .cancel(() => {
                     return true
                 })
-                .ok(() => new Promise(r => {
-                    setTimeout(r, 1000);
+                .ok(() => {
+                    alert()
+                })
+                .test()
 
-                }))
                 .content('是否退出登录？')
                 .show(true);
 

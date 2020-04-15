@@ -1,26 +1,19 @@
 import { isFunction, isPromise, isBoolean, isString, isUnDef } from './utils';
-import { close, last } from '../manager';
+import { close, last, remove } from '../manager';
 const key = '__mx-evt';
 
-function handleAction(el) {
-    const { _index, _onclick } = el;
+function handleAction({ _index, _onclick }) {
     if (!isFunction(_onclick)) {
         return
     }
     let action = isUnDef(_index) ? null : this._actions[_index];
     const res = _onclick.call(this, this._inputVal);
-
-
     if (isPromise(res)) {
         if (action) {
             action.loading = true;
         }
         res.then(isClose => {
-            if (isBoolean(isClose)) {
-                isClose && close(this._id);
-            } else {
-                close(this._id);
-            }
+            isBoolean(isClose) ? (isClose && close(this._id)) : close(this._id);
         }, () => {
             if (action) {
                 action.loading = false;
@@ -35,10 +28,7 @@ function handleAction(el) {
 
 document.addEventListener('keydown', evt => {
     const modal = last();
-
-    if (evt.keyCode === 27 && modal && modal._escClose && modal._isShow) {
-        close(modal._id);
-    }
+    evt.keyCode === 27 && modal && modal._escClose && modal._isShow && close(modal._id);
 });
 
 
@@ -61,6 +51,9 @@ export default function initEvent() {
                 this._el.remove();
                 this._isShow = false;
                 clearEvents();
+                console.log(this._id);
+                // 如果手动调用instace.close方法，需要将实例从stack中移除
+                // remove(this);
             } else {
                 this._isShow = true;
             }

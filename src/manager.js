@@ -2,6 +2,16 @@ import Modalx from './core/instance';
 import { isString, isNumber } from './core/utils';
 
 export const stack = [];
+export function remove(ins) {
+    const id = isString(ins) ? ins : ins._id;
+    let i = stack.length;
+    while (i--) {
+        if (stack[i]._id === id) {
+            stack.splice(i, 1);
+            return;
+        }
+    }
+}
 export function create(id) {
     const mod = new Modalx(id);
     stack.push(mod);

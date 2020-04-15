@@ -2,6 +2,7 @@ import defaults from './defaults';
 import { genEachKey } from './utils';
 import { patch } from './node';
 
+// proxy data 2 modalx instance
 function proxy(target, source) {
     for (let key in source) {
         Reflect.defineProperty(target, '_' + key, {
@@ -23,7 +24,7 @@ function reactive(data, key, value) {
             return value;
         },
         set(val) {
-            if (val === value) {
+            if (val === value || val !== val) {
                 return;
             }
             value = val;

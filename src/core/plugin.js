@@ -1,49 +1,29 @@
-import { isFunction, isString } from "./utils";
-import Modalx from './instance';
-import promptPlugin from '../plugins/prompt';
-import * as loadingPlugin from '../plugins/loading';
-import * as toastPlugin from '../plugins/toast';
-import successPlugin from '../plugins/success';
+/**
+ * plugin for modalx
+ */
+
+import { isString, isFunction } from "./utils";
 import { parse } from '../core/node';
-import { loading } from '../core/html';
+import Modalx from './instance';
 
 
-
-const installedPlugins = Modalx.prototype.plugins = {};
+const installedPlugins = {};
 export default function addPlugin(pluginName, plugin, pluginOpt = {}) {
     if (installedPlugins[pluginName]) {
-        console.warn(`plugin ${pluginName} has been installed!`)
+        console.error(`plugin [${pluginName}] has been installed!`)
         return;
     }
-    if (!plugin) {
-        console.warn(`invalid plugin`);
-        return
-    }
-    const { template, data, container } = pluginOpt;
+    installedPlugins[pluginName] = true;
+    const { template, data, container } = pluginOpt || {};
 
-    Modalx.prototype[pluginName] = function () {
-        if (data) {
-            this._data = data;
-        }
-        if (template) {
-            this._node = parse(template);
-        }
+    Modalx.prototype[pluginName] = function pluginEntry() {
+        this._data = data || this._data;
+        this._node = template ? parse(template) : this._node;
         if (container) {
             const el = isString(container) ? document.querySelector(container) : container;
-            if (el) {
-                this._container = el;
-            }
+            this._container = el || this._container;
         }
-        plugin.apply(this, arguments);
+        isFunction(plugin) && plugin.apply(this, arguments);
         return this;
     }
 }
-
-addPlugin('prompt', promptPlugin);
-addPlugin('loading', loadingPlugin.plugin, {
-    template: loadingPlugin.template,
-});
-addPlugin('toast', toastPlugin.plugin, {
-    template: toastPlugin.template
-});
-addPlugin('success', successPlugin);
