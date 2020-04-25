@@ -33,7 +33,7 @@
         function show() {
             mdx()
                 // .width('80%')
-                .title('提示')
+                // .title('提示')
                 .shadowClose(true)
                 .shadowType('dark')
                 .cancel(() => {
@@ -41,6 +41,10 @@
                 })
                 .ok(() => {
                     alert()
+                })
+                .prompt({
+                    multline: true,
+                    rows: 5
                 })
 
                 .content('是否退出登录？')

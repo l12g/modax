@@ -4,9 +4,12 @@ const html = `
     <div class='mx__title' _text='title' _visible='!!title'></div>
     <div class='mx__body'>
         <div class='mx__content'>
-            <div class='mx__content-icon' _visible='!!icon' _style='{color:iconColor}' _text='icon'></div>
-            <div class='mx__content-raw' _visible='!!content' _text='content'></div>
-            <input class='mx__input' _visible='!!prompt' autofocus='autofocus' on-input='onInputChange'/>
+            <div class='mx__content-icon' _visible='!!icon &&  !prompt' _style='{color:iconColor}' _text='icon'></div>
+            <div class='mx__content-raw' _visible='!!content && !prompt' _text='content'></div>
+            <div _visible='!!prompt' class='mx__prompt'>
+                <input class='mx__input' _visible='!prompt.multline' autofocus='autofocus' on-input='onInputChange'/>
+                <textarea class='mx__input' _visible='prompt.multline' autofocus='autofocus' on-input='onInputChange' _rows='prompt.rows'></textarea>
+            </div>
         </div>
     </div>
     <div class='mx__footer'>
