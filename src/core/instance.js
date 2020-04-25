@@ -52,8 +52,8 @@ addPlugin("icon", function iconPlugin() {
   this._icon = arguments[0];
   this._iconColor = arguments[1];
 });
-addPlugin("action", function actionPlugin() {
-  this._actions = [arguments[0], ...this._actions];
+addPlugin("action", function actionPlugin(opt) {
+  this._actions = [...this._actions, Object.assign({ visible: true }, opt)];
 });
 addPlugin("shadowType", function shadowTypePlugin(type) {
   const dic = {
