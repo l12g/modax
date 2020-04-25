@@ -195,12 +195,12 @@ export function patch(wrapper, node, ctx, parent) {
             el.innerHTML = callExp(val, ctx);
         }
         if (key === 'class') {
-            const r = callExp(userAttrs[k], ctx);
+            const r = callExp(userAttrs[key], ctx);
             isString(r) && classList.push(...r.split(' '));
             isArray(r) && classList.push(...r.filter(Boolean));
         }
         if (key === 'style') {
-            const styleObj = callExp(userAttrs[k], ctx);
+            const styleObj = callExp(userAttrs[key], ctx);
             for (const [k, v] of Object.entries(styleObj)) {
                 el.style[k] = v;
             }

@@ -9,5 +9,5 @@ webpack(webpackConfig, (err, stats) => {
         console.log(err);
         return
     }
-    fs.copyFileSync('dist/modal-x.js', 'docs/modal-x.js');
+    fs.copyFileSync('dist/modax.js', 'docs/modax.js');
 })

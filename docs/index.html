@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Modalx- 强大、美观、轻量级的弹层组件</title>
+    <title>Modax- 强大、美观、轻量级的弹层组件</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="description" content="a lightweight modal toolkit for web">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -16,7 +16,7 @@
     <div id="app"></div>
     <script>
         window.$docsify = {
-            name: 'Modalx',
+            name: 'mdx',
             repo: '',
             maxLevel: 4,
             subMaxLevel: 4,
@@ -25,31 +25,32 @@
             loadNavbar: true
         }
     </script>
-    <script src="./modal-x.js"></script>
+    <script src="./modax.js"></script>
 
     <script>
-        modalx.plugin('myPlugin', function() {
+        
+        mdx.plugin('myPlugin', function() {
             // some code
             setTimeout(() => {
-                modalx.close(this);
+                mdx.close(this);
             }, 1000);
         }, {
             template: "<h1>hello world</h1>"
         })
         const demo = {
             basic() {
-                modalx().content('hello').show();
+                mdx().content('hello').show();
             },
             prompt() {
-                modalx().prompt({
+                mdx().prompt({
                     placeholder: '请输入'
                 }).ok(val => {
-                    modalx().toast('你输入的是：' + val).show();
+                    mdx().toast('你输入的是：' + val).show();
                     return true;
                 }).show()
             },
             customBtn() {
-                modalx().content('自定义操作')
+                mdx().content('自定义操作')
                     .title(false)
                     .ok(false)
                     .cancel(false)
@@ -68,7 +69,7 @@
                     .show()
             },
             asyncModal() {
-                modalx()
+                mdx()
                     .ok(() => {
                         return new Promise(res => {
                             setTimeout(() => {

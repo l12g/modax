@@ -1,31 +1,31 @@
 ## 全局
 
-### modalx(id?: String|Number)
+### mdx(id?: String|Number)
 
 * `id` 该弹层唯一标识
 
 创建一个弹层，并返回其实例
 
 ``` js
-modalx('my modal')
+mdx('my modal')
 ```
 
 
-### modalx.close(id?:string)
+### mdx.close(id?:string)
 
 * `id` 弹层id
 
 关闭指定的弹层，若不传 `id` ，则关闭所有
 
 ``` js
-modalx('m1').show();
+mdx('m1').show();
 
-modalx.close('m1');
+mdx.close('m1');
 // 关闭所有弹层
-modalx.close();
+mdx.close();
 ```
 
-### modalx.plugin(name:String,plugin:Function,opt?:Object)
+### mdx.plugin(name:String,plugin:Function,opt?:Object)
 
 * `name` 插件名称
 * `plugin` 插件逻辑
@@ -35,7 +35,7 @@ modalx.close();
 添加一个插件
 
 
-### modalx.defaults
+### mdx.defaults
 
 弹层的默认值
 
@@ -48,8 +48,8 @@ modalx.close();
 * `shadowColor` 遮罩颜色，默认 `rgba(0,0,0,.5)`
 
 ``` js
-modalx.defaults.okText = '确定';
-modalx.defaults.cancelText = '取消';
+mdx.defaults.okText = '确定';
+mdx.defaults.cancelText = '取消';
 ```
 
 ## 实例方法
@@ -61,8 +61,8 @@ modalx.defaults.cancelText = '取消';
 设置弹窗的标题，若传递 `false` 则隐藏标题栏
 
 ``` js
-modalx().title('title');
-modalx().title(false);
+mdx().title('title');
+mdx().title(false);
 ```
 
 ### .content(val: String)
@@ -72,12 +72,12 @@ modalx().title(false);
 设置弹层显示内容，支持 `html` 字符串
 
 ``` js
-modalx()
+mdx()
     .title('info')
     .content('hello world')
     .show();
 
-modalx()
+mdx()
     .title('info')
     .content('<h3>some content</h3>')
     .show();
@@ -92,8 +92,8 @@ modalx()
 若传入数字，则自动应用 `px` 后缀
 
 ``` js
-modalx().width(100).show();
-modalx().width('50%').show();
+mdx().width(100).show();
+mdx().width('50%').show();
 ```
 
 ### .height(val: String|Number)
@@ -103,8 +103,8 @@ modalx().width('50%').show();
 设置弹层的高度，参考 `.width` 
 
 ``` js
-modalx().height(100).show();
-modalx().height('50%').show();
+mdx().height(100).show();
+mdx().height('50%').show();
 ```
 
 ### .escClose(val: Boolean)
@@ -112,7 +112,7 @@ modalx().height('50%').show();
 `val` 支持键盘 `esc` 键关闭
 
 ``` js
-modalx().escClose(false).show()
+mdx().escClose(false).show()
 ```
 
 ### .shadowClose(val: Boolean)
@@ -120,7 +120,7 @@ modalx().escClose(false).show()
 `val` 点击遮罩关闭
 
 ``` js
-modalx().shadowClose(false).show()
+mdx().shadowClose(false).show()
 ```
 
 ### .ok(text: String|Function|Boolean, cb?: Function)
@@ -135,14 +135,14 @@ modalx().shadowClose(false).show()
 当Promise reolve时，弹层会自动关闭
 
 ``` js
-modalx()
+mdx()
     .ok('我知道了', function() {
         doSth();
     })
     .show();
 
 // 异步回调
-modalx()
+mdx()
     .ok(function() {
         retrun new Promise(res => {
 
@@ -150,7 +150,7 @@ modalx()
     })
     .show();
 // 隐藏确定按钮
-modalx()
+mdx()
     .ok(false)
     .show();
 ```
@@ -173,7 +173,7 @@ modalx()
 该方法会在按钮行首部添加一个自定义按钮
 
 ``` js
-modalx('md')
+mdx('md')
     .content("自定义按钮")
     .action({
         text: '跳过',
@@ -196,7 +196,7 @@ modalx('md')
 必须调用此方法来显示弹层
 
 ``` js
-modalx()
+mdx()
     .title('some title')
     .content('some content')
     .ok(function() {})
@@ -208,10 +208,10 @@ modalx()
 
 手动关闭弹层
 
-大多数情况下，可以使用 `modalx.close` 代替此方法
+大多数情况下，可以使用 `mdx.close` 代替此方法
 
 ``` js
-const modal = modalx().show();
+const modal = mdx().show();
 modal.close();
 ```
 
@@ -245,12 +245,12 @@ modal.close();
 * `.height` 
 
 ``` js
-modalx()
+mdx()
     .toast('hello world')
     .show()
 ```
 
-<a href='javascript:; ' onclick='modalx().toast("hello world").show()'>试一试</a>
+<a href='javascript:; ' onclick='mdx().toast("hello world").show()'>试一试</a>
 
 ### .loading(ms?,text?:String)
 
@@ -270,10 +270,10 @@ modalx()
 * `.height` 
 
 ``` js
-modalx()
+mdx()
     .loading(1000,'loading')
     .show()
 ```
 
-<a href='javascript:; ' onclick='modalx().loading(1000,"loading...").show()'>试一试</a>
+<a href='javascript:; ' onclick='mdx().loading(1000,"loading...").show()'>试一试</a>
 

@@ -1,28 +1,28 @@
 ## 安装
 
 ``` bash
-npm i @oklxq/modal-x
+npm i modax
 ```
 
 或者
 
 ``` bash
-yarn add @oklxq/modal-x
+yarn add modax
 ```
 
 ## 使用
 
-`Modalx` 会添加一个名为 `modalx` 的全局函数，该函数返回一个`Modalx`实例
+`modax` 会添加一个名为 `mdx` 的全局函数，该函数返回一个`modax`实例
 
 实例上所有的方法支持链式调用
 
-必须在最后调用`show`方法，否则不会显示
+但必须在最后调用`show`方法，否则不会显示
 
 ``` js
-modalx().show();
+mdx().show();
 // 关闭某个弹层
-modalx.close(id);
+mdx.close(id);
 // 一些默认参数
-modalx.defaults;
+mdx.defaults;
 ```
 

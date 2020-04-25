@@ -1,10 +1,8 @@
-![logo](_media/icon.svg)
+# Modax
 
-# Modalx
+> 一款强大、易用、美观的弹窗组件
 
-> 一款强大、美观的弹窗组件
+* 零依赖、轻量级
 
-* 零依赖、轻量级 (~13kb gzipped)
-
-[GitHub](https://github.com/oklxq/modal-x)
+[GitHub](https://github.com/oklxq/Modax)
 [开始](intr)

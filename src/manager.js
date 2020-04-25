@@ -1,4 +1,4 @@
-import Modalx from './core/instance';
+import Modax from './core/instance';
 import { isString, isNumber } from './core/utils';
 
 export const stack = [];
@@ -13,7 +13,7 @@ export function remove(ins) {
     }
 }
 export function create(id) {
-    const mod = new Modalx(id);
+    const mod = new Modax(id);
     stack.push(mod);
     return mod;
 }

@@ -8,7 +8,7 @@
 >
 
 **我只想要个弹窗！**
-**[那就用Modalx吧~](quick-start)**
+**[那就用 ~~Modal~~  Modax 吧~](quick-start)**
 
 
 **0依赖，易上手，纯JS，干净无残留！**

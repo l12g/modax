@@ -12,27 +12,26 @@
     <span class="mx-icon mx-icon__alert"></span>
     <span class="mx-icon mx-icon__warning"></span>
     <button onclick="show()">show</button>
-    <button onclick="modalx().loading(10000000).title('please wait...').show()">loading</button>
-    <button onclick="modalx().toast(123).show()">toast</button>
+    <button onclick="mdx().loading(10000000).title('please wait...').show()">loading</button>
+    <button onclick="mdx().toast(123).show()">toast</button>
 
-    <script src="modal-x.js"></script>
+    <script src="modax.js"></script>
     <script>
-        modalx.plugin('test', function () {
+        mdx.plugin('test', function () {
             setTimeout(() => {
                 // this.close();
-                modalx.close(this);
+                mdx.close(this);
             }, 1000);
         }, {
             template: '<h1>hello plugin</h1>',
         });
-        modalx.defaults.shadowType = 'light';
+        mdx.defaults.shadowType = 'light';
         for (let i = 0; i < 5; i++) {
-            // modalx(i + 1).title(i + 1).content(i + 1).show();
+            // mdx(i + 1).title(i + 1).content(i + 1).show();
         }
 
         function show() {
-            modalx()
-                .icon('alert', 'red')
+            mdx()
                 // .width('80%')
                 .title('提示')
                 .shadowClose(true)
@@ -43,15 +42,14 @@
                 .ok(() => {
                     alert()
                 })
-                .test()
 
                 .content('是否退出登录？')
                 .show(true);
 
             return
-            // modalx('x').loading(0, '加载中').show();
+            // mdx('x').loading(0, '加载中').show();
             // return
-            modalx('id')
+            mdx('id')
                 .title('提示')
                 .content('xxx')
                 .cancel(false)
@@ -74,14 +72,14 @@
                 })
                 .show();
             return;
-            // modalx().height(699).src('http://localhost/new-qos/backend/web/index.php').show();
+            // mdx().height(699).src('http://localhost/new-qos/backend/web/index.php').show();
             // return;
-            // modalx().toast('hello').show();
+            // mdx().toast('hello').show();
             // return
-            modalx('x').loading(0, '加载中...').show();
+            mdx('x').loading(0, '加载中...').show();
             return
             setTimeout(() => {
-                modalx()
+                mdx()
                     .title('提示！')
                     .width(500)
                     // .content('<p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p>')

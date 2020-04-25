@@ -10,7 +10,7 @@
 ?> 注意，添加的按钮位于首部
 
 ``` js
-modalx()
+mdx()
     .action({
         text: '我知道了',
         type: 'ok',
@@ -22,12 +22,12 @@ modalx()
     .show()
 ```
 
-<a href='javascript:; ' onclick="modalx().content('自定义按钮').action({text:'我知道了', type:'ok'}).show()">试一试</a>
+<a href='javascript:; ' onclick="mdx().content('自定义按钮').action({text:'我知道了', type:'ok'}).show()">试一试</a>
 
 使用 `.ok` 和 `.cancel` 方法可以自定义或隐藏默认的操作按钮
 
 ``` js
-modalx()
+mdx()
     .ok('知道了', () => {
         return true;
     })
@@ -37,20 +37,20 @@ modalx()
     .show()
 
 // 传入false可以隐藏按钮
-modalx.ok(false).cancel(false).show()
+mdx.ok(false).cancel(false).show()
 ```
 
-<a href='javascript:; ' onclick="modalx().content('自定义默认按钮').ok('我知道了').cancel(false).show()">试一试</a>
+<a href='javascript:; ' onclick="mdx().content('自定义默认按钮').ok('我知道了').cancel(false).show()">试一试</a>
 
 ## 异步关闭
 
-如果 `click` 回调返回一个 `Promise` ， `modalx` 会认为该操作是异步的，将自动显示加载按钮
+如果 `click` 回调返回一个 `Promise` ， `mdx` 会认为该操作是异步的，将自动显示加载按钮
 
 一旦 `Promise` 完成，除非显式的返回 `false` ，否则该弹层会自动关闭
 
 ``` js
 // 1s后自动关闭
-modalx()
+mdx()
     .ok(() => {
         return new Promise(res => {
             setTimeout(res, 1000);
@@ -58,7 +58,7 @@ modalx()
     })
 
 // 不会自动关闭
-modalx()
+mdx()
     .ok(() => {
         return new Promise(res => {
             setTimeout(() => res(false), 1000);
@@ -73,12 +73,12 @@ modalx()
 使用`.icon`方法定义弹层的图标和图标颜色
 
 ```js
-modalx()
+mdx()
     .icon('alert')
     .content('图标')
     .show();
 ```
-<a href='javascript:; ' onclick="modalx().icon('alert').content('图标').show()">试一试</a>
+<a href='javascript:; ' onclick="mdx().icon('alert').content('图标').show()">试一试</a>
 
 ## 输入框
 
@@ -93,7 +93,7 @@ modalx()
 调用该方法后，所有按钮的 `click` 回调接受输入的值作为第一个参数
 
 ``` js
-modalx()
+mdx()
     .prompt({
         placeholder: '请输入'
     })
@@ -114,10 +114,10 @@ modalx()
 
 ``` js
 // 1s后关闭
-modalx().loading(1000, 'I WILL BE BACK...').show()
+mdx().loading(1000, 'I WILL BE BACK...').show()
 ```
 
-<a href='javascript:; ' onclick="modalx().loading(1000, 'I WILL BE BACK... ').shadowType('light').show()">试一试</a>
+<a href='javascript:; ' onclick="mdx().loading(1000, 'I WILL BE BACK... ').shadowType('light').show()">试一试</a>
 
 ## 消息层
 
@@ -129,9 +129,9 @@ modalx().loading(1000, 'I WILL BE BACK...').show()
 可以使用 `.action` 方法为消息添加一些额外操作
 
 ``` js
-modalx().toast('I WILL BE BACK...').show()
+mdx().toast('I WILL BE BACK...').show()
 // 添加额外操作
-modalx().toast('I WILL BE BACK...')
+mdx().toast('I WILL BE BACK...')
     .action({
         text: '撤销',
         click:()=>{
@@ -141,5 +141,5 @@ modalx().toast('I WILL BE BACK...')
     .show()
 ```
 
-<a href='javascript:; ' onclick="modalx().toast('I WILL BE BACK... ').action({text:'撤销',click:()=>alert('clicked')}).show()">试一试</a>
+<a href='javascript:; ' onclick="mdx().toast('I WILL BE BACK... ').action({text:'撤销',click:()=>alert('clicked')}).show()">试一试</a>
 

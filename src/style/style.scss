@@ -7,142 +7,142 @@
 $prefix: mx;
 
 .#{$prefix}--hide {
-    animation: #{$prefix}-fade-out 0.2s forwards ease-in !important;
-    .#{$prefix} {
-        animation: #{$prefix}-slide-up 0.2s;
-    }
+  animation: #{$prefix}-fade-out 0.2s forwards ease-in !important;
+  .#{$prefix} {
+    animation: #{$prefix}-slide-up 0.2s;
+  }
 }
 
 .#{$prefix} {
-    background-color: #fff;
-    width: 400px;
-    display: inline-flex;
-    border-radius: 2px;
-    text-align: left;
+  background-color: #fff;
+  width: 400px;
+  display: inline-flex;
+  border-radius: 2px;
+  text-align: left;
+  padding: 0.5rem;
+  vertical-align: middle;
+  animation: #{$prefix}-slide-down 0.1s forwards ease-out;
+  position: relative;
+  flex-direction: column;
+  margin: 20px 0;
+  box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.1);
+  border: solid 1px darken($color: #fff, $amount: 10);
+  @at-root &__body {
+    flex-grow: 1;
+  }
+  @at-root &__content {
+    padding: 1.2rem 1rem;
+    display: flex;
+    align-items: center;
+  }
+  @at-root &__content-icon {
+    width: auto;
+    margin-right: 1rem;
+    color: $color;
+    + .mx_content-raw {
+      padding-top: 12px;
+    }
+  }
+  @at-root &__content-raw {
+    flex: 1;
+  }
+  @at-root &__title {
     padding: 0.5rem;
+    padding-top: 0;
+    color: #888;
+    // border-bottom: solid 0.01rem darken($color: #fff, $amount: 5);
+  }
+  @at-root &__footer {
+    // border-top: solid .01rem darken($color: #fff, $amount: 5);
+    padding: 0.5rem;
+    padding-bottom: 0;
+    text-align: right;
+  }
+  @at-root &__input {
+    display: block;
+    width: 100%;
+    padding: 0 0.5em;
+    box-sizing: border-box;
+    transition: all 0.2s;
+    outline: none;
+    border: solid 1px #ccc;
+    border-radius: 2px;
+    resize: vertical;
+    padding: 0.5rem;
+    &--multi {
+      font-size: 1rem;
+      font-weight: normal;
+      padding: 5px 10px;
+      min-height: 50px;
+    }
+    &:focus {
+      border-color: $color;
+      box-shadow: 0 0 4px 1px rgba(21, 140, 186, 0.5);
+    }
+  }
+  @at-root &__btn {
+    background-color: #fff;
+    outline: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    outline: none;
+    margin-left: 5px;
+    transition: background 0.2s;
+    border-radius: 2px;
     vertical-align: middle;
-    animation: #{$prefix}-slide-down 0.1s forwards ease-out;
-    position: relative;
-    flex-direction: column;
-    margin: 20px 0;
-    box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.1);
-    border: solid 1px darken($color: #fff, $amount: 10);
-    @at-root &__body {
-        flex-grow: 1;
+    line-height: 100%;
+    font-size: 1rem;
+    * {
+      pointer-events: none;
     }
-    @at-root &__content {
-        padding: .8rem 1rem;
-        display: flex;
-        align-items: center;
+    .mx-loading {
+      margin-right: 5px;
+      width: 0.8rem;
+      height: 0.8rem;
+      border-color: darken(#fff, 2);
+      span::after {
+        border-color: inherit;
+        border-width: 1px;
+      }
     }
-    @at-root &__content-icon {
-        width: auto;
-        margin-right: 1rem;
-        color: $color;
-        + .mx_content-raw {
-            padding-top: 12px;
-        }
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
     }
-    @at-root &__content-raw {
-        flex: 1;
+    &--cancel {
+      &:hover {
+        background-color: darken(#fff, 5);
+      }
+      &:active {
+        background-color: darken(#fff, 10);
+      }
     }
-    @at-root &__title {
-        border-bottom: solid 1px darken($color: #fff, $amount: 5);
-        padding: 0.5rem;
-        padding-top: 0;
-        color: #888;
+    &--ok,
+    &--danger {
+      background-color: #158cba;
+      color: #fff;
+      .mx__loading {
+        border-color: #fff;
+      }
+      &:hover {
+        background-color: darken(#158cba, 5);
+      }
+      &:active {
+        background-color: darken(#158cba, 10);
+      }
     }
-    @at-root &__footer {
-        border-top: solid 1px darken($color: #fff, $amount: 5);
-        padding: 0.5rem;
-        padding-bottom: 0;
-        text-align: right;
+    &--danger {
+      background-color: #ff0039;
+      &:hover {
+        background-color: darken(#ff0039, 5);
+      }
+      &:active {
+        background-color: darken(#ff0039, 10);
+      }
     }
-    @at-root &__input {
-        display: block;
-        width: 100%;
-        padding: 0 0.5em;
-        box-sizing: border-box;
-        transition: all 0.2s;
-        outline: none;
-        border: solid 1px #ccc;
-        border-radius: 2px;
-        resize: vertical;
-        padding: 0.5rem;
-        &--multi {
-            font-size: 1rem;
-            font-weight: normal;
-            padding: 5px 10px;
-            min-height: 50px;
-        }
-        &:focus {
-            border-color: $color;
-            box-shadow: 0 0 4px 1px rgba(21, 140, 186, 0.5);
-        }
-    }
-    @at-root &__btn {
-        background-color: #fff;
-        outline: none;
-        border: none;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        outline: none;
-        margin-left: 5px;
-        transition: background 0.2s;
-        border-radius: 2px;
-        vertical-align: middle;
-        line-height: 100%;
-        font-size: 1rem;
-        * {
-            pointer-events: none;
-        }
-        .mx-loading {
-            margin-right: 5px;
-            width: 0.8rem;
-            height: 0.8rem;
-            border-color: darken(#fff, 2);
-            span::after {
-                border-color: inherit;
-                border-width: 1px;
-            }
-        }
-        &.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-        &--cancel {
-            &:hover {
-                background-color: darken(#fff, 5);
-            }
-            &:active {
-                background-color: darken(#fff, 10);
-            }
-        }
-        &--ok,
-        &--danger {
-            background-color: #158cba;
-            color: #fff;
-            .mx__loading {
-                border-color: #fff;
-            }
-            &:hover {
-                background-color: darken(#158cba, 5);
-            }
-            &:active {
-                background-color: darken(#158cba, 10);
-            }
-        }
-        &--danger {
-            background-color: #ff0039;
-            &:hover {
-                background-color: darken(#ff0039, 5);
-            }
-            &:active {
-                background-color: darken(#ff0039, 10);
-            }
-        }
-    }
+  }
 }

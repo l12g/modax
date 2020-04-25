@@ -2,7 +2,7 @@ import defaults from './defaults';
 import { genEachKey } from './utils';
 import { patch } from './node';
 
-// proxy data 2 modalx instance
+// proxy data 2 mdx instance
 function proxy(target, source) {
     for (let key in source) {
         Reflect.defineProperty(target, '_' + key, {
