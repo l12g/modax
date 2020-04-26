@@ -17,6 +17,7 @@
 
     <script src="modax.js"></script>
     <script>
+        mdx.defaults.width = '80%'
         mdx.plugin('test', function () {
             setTimeout(() => {
                 // this.close();
@@ -33,9 +34,10 @@
         function show() {
             mdx()
                 // .width('80%')
-                // .title('提示')
+                .title('回复')
                 .shadowClose(true)
                 .shadowType('dark')
+
                 .cancel(() => {
                     return true
                 })
