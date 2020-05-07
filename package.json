@@ -1,6 +1,6 @@
 {
   "name": "modax",
-  "version": "0.0.9",
+  "version": "0.0.1",
   "description": "lightweight modal toolkit for web",
   "main": "dist/modax.js",
   "scripts": {

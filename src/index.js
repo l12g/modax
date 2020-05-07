@@ -3,11 +3,11 @@ import { create, close } from "./manager.js";
 import defaults from "./core/defaults";
 import addPlugin from "./core/plugin";
 
-export default function modax(id) {
+export default function mdx(id) {
   return create(id);
 }
-modax.close = function (id) {
+mdx.close = function (id) {
   close(id);
 };
-modax.defaults = defaults;
-modax.plugin = addPlugin;
+mdx.defaults = defaults;
+mdx.plugin = addPlugin;
