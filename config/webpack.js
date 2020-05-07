@@ -43,6 +43,7 @@ module.exports = {
 
   devServer: {
     port: 8099,
+    host: '0.0.0.0'
   },
   plugins: [
     new HtmlPlugin({

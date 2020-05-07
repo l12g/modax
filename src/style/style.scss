@@ -17,9 +17,9 @@ $prefix: mx;
   background-color: #fff;
   width: 400px;
   display: inline-flex;
-  border-radius: 2px;
+  border-radius: 5px;
   text-align: left;
-  padding: 0.5rem;
+  padding: 1rem;
   vertical-align: middle;
   animation: #{$prefix}-slide-down 0.1s forwards ease-out;
   position: relative;
@@ -31,7 +31,7 @@ $prefix: mx;
     flex-grow: 1;
   }
   @at-root &__content {
-    padding: 1.2rem 1rem;
+    padding: 1.2rem 0;
     display: flex;
     align-items: center;
   }
@@ -47,16 +47,23 @@ $prefix: mx;
     flex: 1;
   }
   @at-root &__title {
-    padding: 0.5rem;
+    padding: 0.5rem 0;
     padding-top: 0;
     color: #888;
     // border-bottom: solid 0.01rem darken($color: #fff, $amount: 5);
   }
   @at-root &__footer {
     // border-top: solid .01rem darken($color: #fff, $amount: 5);
-    padding: 0.5rem;
+    padding: 0.5rem 0;
     padding-bottom: 0;
     text-align: right;
+  }
+
+  @at-root &__prompt {
+    width: 100%;
+  }
+  textarea {
+    height: 100px;
   }
   @at-root &__input {
     display: block;
@@ -65,6 +72,8 @@ $prefix: mx;
     box-sizing: border-box;
     transition: all 0.2s;
     outline: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*点击高亮的颜色*/
     border: solid 1px #ccc;
     border-radius: 2px;
     resize: vertical;
@@ -76,25 +85,25 @@ $prefix: mx;
       min-height: 50px;
     }
     &:focus {
-      border-color: $color;
-      box-shadow: 0 0 4px 1px rgba(21, 140, 186, 0.5);
+      box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.1);
     }
   }
   @at-root &__btn {
     background-color: #fff;
     outline: none;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1.6rem;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     outline: none;
     margin-left: 5px;
     transition: background 0.2s;
-    border-radius: 2px;
+    border-radius: 5px;
     vertical-align: middle;
     line-height: 100%;
     font-size: 1rem;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*点击高亮的颜色*/
     * {
       pointer-events: none;
     }
