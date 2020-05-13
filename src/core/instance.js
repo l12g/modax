@@ -1,12 +1,15 @@
 import addPlugin from "./plugin";
-import * as loadingPlugin from "../plugins/loading";
-import * as toastPlugin from "../plugins/toast";
-import promptPlugin from "../plugins/prompt";
 import { isNumber, isBoolean, isFunction } from "./utils";
 import defaults from "./defaults";
 import initData from "./data";
 import initEvent from "./event";
 import initNode, { patch } from "./node";
+
+import "../plugins/loading";
+import "../plugins/toast";
+import "../plugins/cb";
+import "../plugins/prompt";
+
 let uid = 0;
 function handleBtn(action, ...args) {
   action.visible = true;
@@ -90,6 +93,7 @@ addPlugin("close", function closePlugin() {
 });
 addPlugin("show", function showPlugin() {
   this._container.appendChild(this._el);
+  this.emit("show");
   Promise.resolve().then(() => {
     patch(this._el, this._node, this._data);
     if (this._prompt) {

@@ -62,6 +62,7 @@ export default function initEvent() {
         clearEvents();
         // 如果手动调用instace.close方法，需要将实例从stack中移除
         remove(this);
+        this.emit("close");
       } else {
         this._isShow = true;
       }
