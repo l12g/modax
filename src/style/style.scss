@@ -132,25 +132,25 @@ $prefix: mx;
     }
     &--ok,
     &--danger {
-      background-color: #158cba;
+      background-color: $color;
       color: #fff;
       .mx__loading {
         border-color: #fff;
       }
       &:hover {
-        background-color: darken(#158cba, 5);
+        background-color: darken($color, 5);
       }
       &:active {
-        background-color: darken(#158cba, 10);
+        background-color: darken($color, 10);
       }
     }
     &--danger {
-      background-color: #ff0039;
+      background-color: $danger-color;
       &:hover {
-        background-color: darken(#ff0039, 5);
+        background-color: darken($danger-color, 5);
       }
       &:active {
-        background-color: darken(#ff0039, 10);
+        background-color: darken($danger-color, 10);
       }
     }
   }
