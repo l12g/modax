@@ -1,115 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <span class="mx-icon mx-icon__alert"></span>
     <span class="mx-icon mx-icon__warning"></span>
     <button onclick="show()">show</button>
-    <button onclick="mdx().loading(10000000).title('please wait...').show()">loading</button>
-    <button onclick="mdx().toast(123).show()">toast</button>
+    <button onclick="mdx().loading(1000).title('please wait...').show()">
+      loading
+    </button>
+    <button onclick="mdx().toast('我是一条消息'+Math.random()).middle().show()">
+      toast
+    </button>
 
     <script src="modax.js"></script>
     <script>
-        mdx.defaults.width = '80%'
-        mdx.plugin('test', function () {
-            setTimeout(() => {
-                // this.close();
-                mdx.close(this);
-            }, 1000);
-        }, {
-            template: '<h1>hello plugin</h1>',
-        });
-        mdx.defaults.shadowType = 'light';
-        for (let i = 0; i < 5; i++) {
-            // mdx(i + 1).title(i + 1).content(i + 1).show();
+      mdx.defaults.width = "80%";
+      mdx.plugin(
+        "test",
+        function () {
+          setTimeout(() => {
+            // this.close();
+            mdx.close(this);
+          }, 1000);
+        },
+        {
+          template: "<h1>hello plugin</h1>",
         }
+      );
+      mdx.defaults.shadowType = "light";
+      for (let i = 0; i < 5; i++) {
+        // mdx(i + 1).title(i + 1).content(i + 1).show();
+      }
 
-        function show() {
-            mdx()
-                // .width('80%')
-                .title('回复')
-                .shadowClose(true)
-                .shadowType('dark')
+      function show() {
+        mdx()
+          // .width('80%')
+          .title("回复")
+          .shadowClose(true)
+          .shadowType("dark")
 
-                .cancel(() => {
-                    return true
-                })
-                .ok(() => {
-                    alert()
-                })
-                .prompt({
-                    multline: true,
-                    rows: 5
-                })
+          .cancel(() => {
+            return true;
+          })
+          .ok(() => {
+            alert();
+          })
+          .prompt({
+            multline: true,
+            rows: 5,
+          })
 
-                .content('是否退出登录？')
-                .show(true);
+          .content("是否退出登录？")
+          .show(true);
 
-            return
-            // mdx('x').loading(0, '加载中').show();
-            // return
-            mdx('id')
-                .title('提示')
-                .content('xxx')
-                .cancel(false)
-                .ok(false)
-                .action({
-                    text: '跳过',
-                    type: 'ok',
-                    click: () => new Promise(r => {
-                        // setTimeout(r, 1000);
-                    })
-                })
-                .action({
-                    text: '知道了',
-                    type: 'cancel',
-                })
-                .ok(() => {
-                    return new Promise(r => {
-                        setTimeout(r, 1000);
-                    })
-                })
-                .show();
-            return;
-            // mdx().height(699).src('http://localhost/new-qos/backend/web/index.php').show();
-            // return;
-            // mdx().toast('hello').show();
-            // return
-            mdx('x').loading(0, '加载中...').show();
-            return
-            setTimeout(() => {
-                mdx()
-                    .title('提示！')
-                    .width(500)
-                    // .content('<p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p>')
-                    .ok('退出', () => {
-                        return new Promise(r => {
-                            setTimeout(r, 1000);
-                        });
-                    })
-                    .title('请输入')
-                    .prompt({
-                        placeholder: '名称',
-                        // multline:true
-                    })
-                    .show(true);
+        return;
+        // mdx('x').loading(0, '加载中').show();
+        // return
+        mdx("id")
+          .title("提示")
+          .content("xxx")
 
-            }, 1000);
-        }
+          .cancel(false)
+          .ok(false)
+          .action({
+            text: "跳过",
+            type: "ok",
+            click: () =>
+              new Promise((r) => {
+                // setTimeout(r, 1000);
+              }),
+          })
+          .action({
+            text: "知道了",
+            type: "cancel",
+          })
+          .ok(() => {
+            return new Promise((r) => {
+              setTimeout(r, 1000);
+            });
+          })
+          .show();
+        return;
+        // mdx().height(699).src('http://localhost/new-qos/backend/web/index.php').show();
+        // return;
+        // mdx().toast('hello').show();
+        // return
+        mdx("x").loading(0, "加载中...").show();
+        return;
+        setTimeout(() => {
+          mdx()
+            .title("提示！")
+            .width(500)
+            // .content('<p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p><p>asdads</p>')
+            .ok("退出", () => {
+              return new Promise((r) => {
+                setTimeout(r, 1000);
+              });
+            })
+            .title("请输入")
+            .prompt({
+              placeholder: "名称",
+              // multline:true
+            })
+            .show(true);
+        }, 1000);
+      }
 
-        const exp = "'str.ss'+title+a.per+b.per+'str.dasd'";
-        const a = exp.replace(/(['"`]).*?\1/g, '')
-            .replace(/\.\w+/g, '')
-            .match(/\w+/g);
-        console.log(a);
+      const exp = "'str.ss'+title+a.per+b.per+'str.dasd'";
+      const a = exp
+        .replace(/(['"`]).*?\1/g, "")
+        .replace(/\.\w+/g, "")
+        .match(/\w+/g);
+      console.log(a);
     </script>
-</body>
-
+  </body>
 </html>
