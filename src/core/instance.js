@@ -92,22 +92,10 @@ addPlugin("show", function showPlugin() {
   this._container.appendChild(this._el);
   Promise.resolve().then(() => {
     patch(this._el, this._node, this._data);
-
-
     if (this._prompt) {
       setTimeout(() => {
-        this._el.querySelector('input,textarea').focus();
+        this._el.querySelector("input,textarea").focus();
       }, 0);
     }
   });
-
-});
-
-// adv plugins
-addPlugin("prompt", promptPlugin);
-addPlugin("loading", loadingPlugin.plugin, {
-  template: loadingPlugin.template,
-});
-addPlugin("toast", toastPlugin.plugin, {
-  template: toastPlugin.template,
 });
