@@ -36,7 +36,6 @@ function init() {
   el.className = "mx-overlay";
   initData.call(this);
   initNode.call(this);
-  initEvent.call(this);
   this.escClose(true);
   this.shadowClose(false);
   this.shadowType(defaults.shadowType);
@@ -92,10 +91,12 @@ addPlugin("close", function closePlugin() {
   return this;
 });
 addPlugin("show", function showPlugin() {
+  this._el.classList.remove("mx--hide");
   this._container.appendChild(this._el);
   this.emit("show");
+  initEvent.call(this);
   Promise.resolve().then(() => {
-    patch(this._el, this._node, this._data);
+    !this._isShow && patch(this._el, this._node, this._data);
     if (this._prompt) {
       setTimeout(() => {
         this._el.querySelector("input,textarea").focus();

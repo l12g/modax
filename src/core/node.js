@@ -1,15 +1,6 @@
 import { isString, isArray, isBoolean, isNumber, isUnDef } from "./utils";
 import template from "./html";
 
-const NODE_KEY_TYPES = [
-  "object",
-  "string",
-  "array",
-  "boolean",
-  "number",
-  "function",
-];
-
 /**
  * clone node
  * @param {*} node
@@ -75,39 +66,6 @@ function callExp(exp, ctx) {
   return fn.call(null, ctx);
 }
 
-function patchArr(wrapper, node, ctx, parent) {
-  const { each, key } = node.userAttrs;
-  //
-  const vals = parseEachVal(each);
-  const list = ctx[vals[1]];
-
-  // empty wrapper
-  let i = list.length;
-  const eachNodes = (node._eachNodes = node._eachNodes || []);
-  eachNodes.length = i;
-  eachNodes.forEach((o) => {
-    o && o._el && o._el.remove();
-  });
-  while (i--) {
-    const item = list[i];
-    const _ctx = {
-      [vals[0]]: item,
-    };
-    const _key = key ? callExp(key, _ctx) : i;
-
-    const old = eachNodes[i];
-    if (!old || _key !== old.key) {
-      eachNodes[i] = cloneNode(node);
-    }
-
-    _ctx.__proto__ = ctx;
-    const clone = eachNodes[i];
-    delete clone.userAttrs.each;
-    clone._index = i;
-    clone[vals[0]] = item;
-    patch(parent._el, clone, _ctx, parent);
-  }
-}
 /**
  * parse html 2 virtual node
  * only first child supported
@@ -153,7 +111,44 @@ export function parse(domStr) {
   };
   return fn(root);
 }
+function patchArr(wrapper, node, ctx, parent) {
+  const { each, key } = node.userAttrs;
+  //
+  const vals = parseEachVal(each);
+  const list = ctx[vals[1]];
 
+  // empty wrapper
+  let i = list.length;
+  const eachNodes = (node._eachNodes = node._eachNodes || []);
+  eachNodes.length = i;
+  eachNodes.forEach((o) => {
+    o && o._el && o._el.remove();
+  });
+  console.log(eachNodes);
+  while (i--) {
+    const item = list[i];
+    const _ctx = {
+      [vals[0]]: item,
+    };
+    const _key = key ? callExp(key, _ctx) : i;
+
+    const old = eachNodes[i];
+    if (old) {
+      old.key = _key;
+    }
+    if (!old || _key !== old.key) {
+      eachNodes[i] = cloneNode(node);
+      console.log("clone");
+    }
+
+    _ctx.__proto__ = ctx;
+    const clone = eachNodes[i];
+    delete clone.userAttrs.each;
+    clone._index = i;
+    clone[vals[0]] = item;
+    patch(parent._el, clone, _ctx, parent);
+  }
+}
 /**
  * patch virtual node to dom tree
  * @param {HTMLElement} wrapper
@@ -162,7 +157,7 @@ export function parse(domStr) {
  * @param {Object} parent
  */
 export function patch(wrapper, node, ctx, parent) {
-  const { _el, _index, tag, staticClasses, on, attrs, userAttrs } = node;
+  const { _el, _index, tag, on, attrs, userAttrs } = node;
   // patch array
   if (userAttrs.each) {
     patchArr(wrapper, node, ctx, parent);
