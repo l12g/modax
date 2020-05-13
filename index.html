@@ -13,7 +13,7 @@
     <button onclick="mdx().loading(1000).title('please wait...').show()">
       loading
     </button>
-    <button onclick="mdx().toast('我是一条消息'+Math.random()).middle().show()">
+    <button onclick="mdx().toast('我是一条消息'+Math.random(),1000000).show()">
       toast
     </button>
 
@@ -40,9 +40,13 @@
       function show() {
         mdx()
           // .width('80%')
-          .title("回复")
+          .title("请稍后...")
           .shadowClose(true)
           .shadowType("dark")
+          .on("show", function () {})
+          .on("close", function () {
+            this.show();
+          })
 
           .cancel(() => {
             return true;
