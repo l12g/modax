@@ -16,7 +16,7 @@ function emitPlugin(type, data) {
   const set = pool.get(type);
   if (set) {
     for (const fn of set.values()) {
-      fn(data);
+      fn.call(this, data);
     }
   }
 }
