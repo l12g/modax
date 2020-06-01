@@ -7,18 +7,21 @@ $prefix: mx-overlay;
   top: 0;
   bottom: 0;
   z-index: 999;
-  background-color: rgba(0, 0, 0, 0.5);
   text-align: center;
   vertical-align: middle;
   overflow: auto;
   opacity: 0;
   transform-origin: center;
   animation: mx-fade-in 0.2s forwards ease-out;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC,
-    Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei,
-    sans-serif;
+  @at-root &--dark {
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: all;
+  }
+
+  @at-root &--light {
+    background-color: rgba(255, 255, 255, 0.5);
+    pointer-events: all;
+  }
   &::after {
     content: "";
     vertical-align: middle;

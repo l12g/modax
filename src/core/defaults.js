@@ -7,6 +7,6 @@ export default {
   height: null,
   toastTime: 3000,
   toastAlign: "top",
-  shadowType: "dark",
+  shadow: "dark",
   placeholder: "请输入",
 };

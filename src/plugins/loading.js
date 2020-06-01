@@ -4,6 +4,7 @@ import addPlugin from "../core/plugin";
 function plugin(ms) {
   this.escClose(false);
   this.shadowClose(false);
+  this.shadow(false);
   ms &&
     (this._tid = setTimeout(() => {
       close(this._id);

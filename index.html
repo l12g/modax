@@ -10,10 +10,10 @@
     <span class="mx-icon mx-icon__alert"></span>
     <span class="mx-icon mx-icon__warning"></span>
     <button onclick="show()">show</button>
-    <button onclick="mdx().loading(1000).title('please wait...').show()">
+    <button onclick="mdx().loading().title('加载中...').show()">
       loading
     </button>
-    <button onclick="mdx().toast('我是一条消息'+Math.random(),1000000).show()">
+    <button onclick="mdx().toast('我是一条消息'+Math.random(),1000000).bottom().show()">
       toast
     </button>
 

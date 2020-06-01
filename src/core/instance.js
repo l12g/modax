@@ -38,7 +38,7 @@ function init() {
   initNode.call(this);
   this.escClose(true);
   this.shadowClose(false);
-  this.shadowType(defaults.shadowType);
+  this.shadow(defaults.shadow);
 }
 export default function Modax(id) {
   init.call(this, id || "mx-" + uid++);
@@ -57,15 +57,18 @@ addPlugin("icon", function iconPlugin() {
 addPlugin("action", function actionPlugin(opt) {
   this._actions = [...this._actions, Object.assign({ visible: true }, opt)];
 });
-addPlugin("shadowType", function shadowTypePlugin(type) {
+addPlugin("shadow", function shadowTypePlugin(type) {
   const dic = {
     dark: "rgba(0,0,0,.5)",
     light: "rgba(255,255,255,.5)",
   };
-  this._shadowType = type;
-  if (!this._toast) {
-    this._el.style.backgroundColor = dic[type];
+  if (isBoolean(type) && !type) {
+    this._el.className = "mx-overlay";
+    return;
   }
+
+  this._shadowType = type;
+  this._el.className = dic[type] || defaults.shadow;
 });
 addPlugin("escClose", function escClosePlugin() {
   this._escClose = !!arguments[0];
