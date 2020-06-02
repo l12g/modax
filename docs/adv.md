@@ -114,11 +114,11 @@ mdx()
 mdx().loading(1000).title("I WILL BE BACK...").show();
 ```
 
-<a href='javascript:; ' onclick="mdx().loading(1000).title('I WILL BE BACK... ').shadowType('light').show()">试一试</a>
+<a href='javascript:; ' onclick="mdx().loading(1000).title('I WILL BE BACK... ').shadow(false).show()">试一试</a>
 
 ## Toast
 
-使用 `.toast` 显示一个加载层，该方法接受两个参数
+使用 `.toast` 显示一个消息层，该方法接受两个参数
 
 - `text` 消息内容
 - `ms` 持续时间，单位毫秒，为 0 表示不关闭，默认 3000
@@ -129,23 +129,24 @@ mdx().loading(1000).title("I WILL BE BACK...").show();
 mdx().toast("I WILL BE BACK...").show();
 // 添加额外操作
 mdx()
-  .toast("I WILL BE BACK...")
+  .toast("I WILL BE BACK...", 0)
   .action({
     text: "撤销",
     click: () => {
       alert("clicked");
+      return true;
     },
   })
   .show();
 ```
 
-<a href='javascript:; ' onclick="mdx().toast('I WILL BE BACK... ',100000).action({text:'撤销',click:()=>alert('clicked')}).show()">试一试</a>
+<a href='javascript:; ' onclick="mdx().toast('I WILL BE BACK... ',100000).action({text:'撤销',click:()=>{alert('clicked');return true;}}).show()">试一试</a>
 
-## 回调
+## 事件
 
-可以使用`.on/.off`注册/取消回调
+可以使用`.on/.off`注册/取消事件
 
-回调函数的 this 指向当前实例（箭头函数除外），因此你可以继续调用实例上的方法
+事件回调函数的 this 指向当前实例（箭头函数除外），因此你可以继续调用实例上的方法
 
 `mdx`默认有 2 个事件：
 

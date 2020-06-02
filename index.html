@@ -13,7 +13,9 @@
     <button onclick="mdx().loading().title('加载中...').show()">
       loading
     </button>
-    <button onclick="mdx().toast('我是一条消息'+Math.random(),1000000).bottom().show()">
+    <button
+      onclick="mdx().toast('我是一条消息'+Math.random(),1000000).bottom().show()"
+    >
       toast
     </button>
 
@@ -32,7 +34,7 @@
           template: "<h1>hello plugin</h1>",
         }
       );
-      mdx.defaults.shadowType = "light";
+      mdx.defaults.shadow = "light";
       for (let i = 0; i < 5; i++) {
         // mdx(i + 1).title(i + 1).content(i + 1).show();
       }
@@ -40,13 +42,9 @@
       function show() {
         mdx()
           // .width('80%')
-          .title("请稍后...")
+          .title("提示")
           .shadowClose(true)
-          .shadowType("dark")
-          .on("show", function () {})
-          .on("close", function () {
-            this.show();
-          })
+          .shadow("dark")
 
           .cancel(() => {
             return true;
@@ -54,12 +52,8 @@
           .ok(() => {
             alert();
           })
-          .prompt({
-            multline: true,
-            rows: 5,
-          })
 
-          .content("是否退出登录？")
+          .content("这个例子基于官方 Nginx 镜像，因此已经设置了日志重定向并关闭了自我守护进程。它也提供了其他有利于 Nginx 在 Docker 容器中运行的默认设置")
           .show(true);
 
         return;

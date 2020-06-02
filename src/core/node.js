@@ -124,7 +124,6 @@ function patchArr(wrapper, node, ctx, parent) {
   eachNodes.forEach((o) => {
     o && o._el && o._el.remove();
   });
-  console.log(eachNodes);
   while (i--) {
     const item = list[i];
     const _ctx = {
@@ -138,7 +137,6 @@ function patchArr(wrapper, node, ctx, parent) {
     }
     if (!old || _key !== old.key) {
       eachNodes[i] = cloneNode(node);
-      console.log("clone");
     }
 
     _ctx.__proto__ = ctx;

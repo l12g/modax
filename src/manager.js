@@ -14,9 +14,7 @@ export function remove(ins) {
 }
 export function create(id) {
   const mod = new Modax(id);
-  mod.on("show", () => {
-    stack.push(mod);
-  });
+  stack.push(mod);
   return mod;
 }
 

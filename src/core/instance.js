@@ -40,10 +40,10 @@ function init() {
   this.shadowClose(false);
   this.shadow(defaults.shadow);
 }
+
 export default function Modax(id) {
   init.call(this, id || "mx-" + uid++);
 }
-
 addPlugin("title", function titlePlugin() {
   this._title = arguments[0];
 });
@@ -59,8 +59,8 @@ addPlugin("action", function actionPlugin(opt) {
 });
 addPlugin("shadow", function shadowTypePlugin(type) {
   const dic = {
-    dark: "rgba(0,0,0,.5)",
-    light: "rgba(255,255,255,.5)",
+    dark: "dark",
+    light: "light",
   };
   if (isBoolean(type) && !type) {
     this._el.className = "mx-overlay";
@@ -68,7 +68,7 @@ addPlugin("shadow", function shadowTypePlugin(type) {
   }
 
   this._shadowType = type;
-  this._el.className = dic[type] || defaults.shadow;
+  this._el.className = `mx-overlay mx-overlay--${dic[type] || defaults.shadow}`;
 });
 addPlugin("escClose", function escClosePlugin() {
   this._escClose = !!arguments[0];
@@ -102,7 +102,8 @@ addPlugin("show", function showPlugin() {
     !this._isShow && patch(this._el, this._node, this._data);
     if (this._prompt) {
       setTimeout(() => {
-        this._el.querySelector("input,textarea").focus();
+        const input = this._el.querySelector("input,textarea");
+        input && input.focus();
       }, 0);
     }
   });

@@ -13,6 +13,9 @@ $prefix: mx-overlay;
   opacity: 0;
   transform-origin: center;
   animation: mx-fade-in 0.2s forwards ease-out;
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
   @at-root &--dark {
     background-color: rgba(0, 0, 0, 0.5);
     pointer-events: all;

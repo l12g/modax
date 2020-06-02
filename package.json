@@ -1,6 +1,6 @@
 {
   "name": "modax",
-  "version": "0.1.0",
+  "version": "0.1.7",
   "description": "lightweight modal toolkit for web",
   "main": "dist/modax.js",
   "scripts": {
@@ -9,11 +9,17 @@
     "doc": "docsify serve docs",
     "test": "karma start karma.conf.js"
   },
+  "keywords": [
+    "modal",
+    "web",
+    "javascript",
+    "lightbox"
+  ],
   "jest": {
     "testRegex": "/test/*.test.js$"
   },
   "author": "liangxiaoqiang",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.8.6",
     "@babel/preset-env": "^7.8.6",
@@ -35,5 +41,10 @@
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
-  }
+  },
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
+  "typings": "./index.d.ts"
 }
