@@ -43,8 +43,11 @@ interface ModaxInstance {
   width(val: string | number): ModaxInstance;
 
   // plugins
-  toast(text: string, time: number): ModaxInstance;
-  loading(time: number): ModaxInstance;
+  toast(text: string, time?: number): ModaxInstance;
+  middle(): ModaxInstance;
+  bottom(): ModaxInstance;
+  overlap(): ModaxInstance;
+  loading(time?: number): ModaxInstance;
   prompt(opt: ModaxInstancePrompt): ModaxInstance;
   plugin(name: string, fn: () => void, opt?: any): ModaxInstance;
 }

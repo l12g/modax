@@ -55,16 +55,15 @@ export default function initEvent() {
     handleAction.call(this, evt.target);
   };
   const handleAniend = (evt) => {
+    console.log(evt.target);
     if (evt.target === this._el) {
-      if (this._isShow) {
+      if (!this._isShow) {
         this._el.remove();
         this._isShow = false;
         clearEvents();
         // 如果手动调用instace.close方法，需要将实例从stack中移除
         remove(this);
         this.emit("close");
-      } else {
-        this._isShow = true;
       }
     }
   };

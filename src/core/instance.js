@@ -91,6 +91,7 @@ addPlugin("height", function heightPlugin(size) {
 addPlugin("close", function closePlugin() {
   this._tid && clearTimeout(this._tid);
   this._el.classList.add("mx--hide");
+  this._isShow = false;
   return this;
 });
 addPlugin("show", function showPlugin() {
@@ -100,6 +101,7 @@ addPlugin("show", function showPlugin() {
   initEvent.call(this);
   Promise.resolve().then(() => {
     !this._isShow && patch(this._el, this._node, this._data);
+    this._isShow = true;
     if (this._prompt) {
       setTimeout(() => {
         const input = this._el.querySelector("input,textarea");

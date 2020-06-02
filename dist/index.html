@@ -10,7 +10,7 @@
     <span class="mx-icon mx-icon__alert"></span>
     <span class="mx-icon mx-icon__warning"></span>
     <button onclick="show()">show</button>
-    <button onclick="mdx().loading().title('加载中...').show()">
+    <button onclick="testLoading()">
       loading
     </button>
     <button
@@ -21,6 +21,13 @@
 
     <script src="modax.js"></script>
     <script>
+      function testLoading() {
+        const id = Math.random();
+        mdx(id).loading().show();
+        setTimeout(() => {
+          mdx.close(id);
+        }, 100);
+      }
       mdx.defaults.width = "80%";
       mdx.plugin(
         "test",
@@ -53,7 +60,9 @@
             alert();
           })
 
-          .content("这个例子基于官方 Nginx 镜像，因此已经设置了日志重定向并关闭了自我守护进程。它也提供了其他有利于 Nginx 在 Docker 容器中运行的默认设置")
+          .content(
+            "这个例子基于官方 Nginx 镜像，因此已经设置了日志重定向并关闭了自我守护进程。它也提供了其他有利于 Nginx 在 Docker 容器中运行的默认设置"
+          )
           .show(true);
 
         return;
