@@ -12,16 +12,23 @@ function handleAction({ _index, _onclick }) {
     if (action) {
       action.loading = true;
     }
-    res.then(
-      (isClose) => {
-        isBoolean(isClose) ? isClose && close(this._id) : close(this._id);
-      },
-      () => {
+    res
+      .then(
+        (isClose) => {
+          isBoolean(isClose) ? isClose && close(this._id) : close(this._id);
+        },
+        () => {
+          if (action) {
+            action.loading = false;
+          }
+        }
+      )
+      .catch(() => {
         if (action) {
           action.loading = false;
         }
-      }
-    );
+        // action.loading = false;
+      });
   } else {
     isBoolean(res) && res && close(this._id);
   }
@@ -55,7 +62,6 @@ export default function initEvent() {
     handleAction.call(this, evt.target);
   };
   const handleAniend = (evt) => {
-    console.log(evt.target);
     if (evt.target === this._el) {
       if (!this._isShow) {
         this._el.remove();

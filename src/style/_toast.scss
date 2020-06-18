@@ -28,6 +28,11 @@ $prefix: mx-toast;
   @at-root &--middle {
     top: 50%;
     text-align: center;
+    .#{$prefix}--overlap {
+      .#{$prefix}__content {
+        transform: translate(-50%, -50%);
+      }
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-type ModaxInstanceActionClick = () => boolean | void;
+type ModaxInstanceActionClick = () => boolean | void | Primise<any>;
 type ModaxInstanceAction =
   | {
       text: string;
