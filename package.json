@@ -3,6 +3,11 @@
   "version": "0.2.4",
   "description": "lightweight modal toolkit for web",
   "main": "dist/modax.js",
+  "homepage": "https://voidshub.github.io/modax",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/voidshub/modax"
+  },
   "scripts": {
     "dev": "webpack-dev-server --config config/webpack.js",
     "build": "node scripts/build.js",
