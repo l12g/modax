@@ -1,6 +1,6 @@
-import { isString, isArray, isBoolean, isNumber, isUnDef } from "./utils";
+import spinIcon from "../icon/spin.svg";
 import template from "./html";
-
+import { isArray, isBoolean, isNumber, isString, isUnDef } from "./utils";
 /**
  * clone node
  * @param {*} node
@@ -190,17 +190,17 @@ export function patch(wrapper, node, ctx, parent) {
   for (const [key, val] of Object.entries(userAttrs)) {
     if (key === "text") {
       el.innerHTML = callExp(val, ctx);
-    }
-    if (key === "class") {
+    } else if (key === "class") {
       const r = callExp(userAttrs[key], ctx);
       isString(r) && classList.push(...r.split(" "));
       isArray(r) && classList.push(...r.filter(Boolean));
-    }
-    if (key === "style") {
+    } else if (key === "style") {
       const styleObj = callExp(userAttrs[key], ctx);
       for (const [k, v] of Object.entries(styleObj)) {
         el.style[k] = v;
       }
+    } else if (/^data-/.test(key)) {
+      el.setAttribute(key, callExp(userAttrs[key], ctx));
     }
   }
   // patch children if no text defined
@@ -212,16 +212,10 @@ export function patch(wrapper, node, ctx, parent) {
     }
   }
   classList.length && el.setAttribute("class", classList.join(" "));
-
-  for (const key in on) {
-    const defaultHandler = ctx.handlers[on[key]];
-    if (key === "click") {
-      // proxy click event
-      el["_on" + key] = callExp(on[key], ctx) || defaultHandler;
-    } else {
-      el["on" + key] = defaultHandler;
-    }
+  if (classList.indexOf("mx-loading") >= 0) {
+    el.innerHTML = spinIcon;
   }
+
   el._index = _index;
   if (!el.parentElement || el.parentElement !== wrapper) {
     wrapper.appendChild(el);
