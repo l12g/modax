@@ -1,15 +1,14 @@
-import addPlugin from "./plugin";
-import { isNumber, isBoolean, isFunction } from "./utils";
-import defaults from "./defaults";
+import icon from "../icon";
+import "../plugins/cb";
+import "../plugins/loading";
+import "../plugins/prompt";
+import "../plugins/toast";
 import initData from "./data";
+import defaults from "./defaults";
 import initEvent from "./event";
 import initNode, { patch } from "./node";
-
-import "../plugins/loading";
-import "../plugins/toast";
-import "../plugins/cb";
-import "../plugins/prompt";
-
+import addPlugin from "./plugin";
+import { isBoolean, isFunction, isNumber } from "./utils";
 let uid = 0;
 function handleBtn(action, ...args) {
   action.visible = true;
@@ -17,7 +16,7 @@ function handleBtn(action, ...args) {
     if (isBoolean(args[0])) {
       action.visible = args[0];
     } else {
-      action[isFunction(args[0]) ? "click" : "text"] = args[0];
+      action[isFunction(args[0]) ? "handler" : "text"] = args[0];
     }
   }
   if (args.length === 2) {
@@ -25,7 +24,7 @@ function handleBtn(action, ...args) {
       throw new Error("invalid parameter");
     }
     action.text = args[0];
-    action.click = args[1];
+    action.handler = args[1];
   }
   return this;
 }
@@ -51,11 +50,23 @@ addPlugin("content", function contentPlugin() {
   this._content = arguments[0];
 });
 addPlugin("icon", function iconPlugin() {
-  this._icon = arguments[0];
-  this._iconColor = arguments[1];
+  this._icon = icon[arguments[0]];
+  if (!arguments[1]) {
+    this._iconColor = arguments[1];
+  }
 });
-addPlugin("action", function actionPlugin(opt) {
-  this._actions = [...this._actions, Object.assign({ visible: true }, opt)];
+addPlugin("action", function actionPlugin(opt, handler) {
+  this._actions = [
+    ...this._actions,
+    Object.assign(
+      { visible: true, id: "action_" + this._actions.length, handler },
+      opt
+    ),
+  ];
+});
+addPlugin("actionBlocked", function actionBlockedPlugin(val) {
+  const footer = this._el.querySelector(".mx__footer");
+  footer && footer.classList.add(".mx__footer--block");
 });
 addPlugin("shadow", function shadowTypePlugin(type) {
   const dic = {
@@ -89,24 +100,18 @@ addPlugin("height", function heightPlugin(size) {
   this._height = isNumber(size) ? size + "px" : size;
 });
 addPlugin("close", function closePlugin() {
+  this._isShow = false;
   this._tid && clearTimeout(this._tid);
   this._el.classList.add("mx--hide");
-  this._isShow = false;
   return this;
 });
 addPlugin("show", function showPlugin() {
   this._el.classList.remove("mx--hide");
   this._container.appendChild(this._el);
-  this.emit("show");
   initEvent.call(this);
-  Promise.resolve().then(() => {
-    !this._isShow && patch(this._el, this._node, this._data);
-    this._isShow = true;
-    if (this._prompt) {
-      setTimeout(() => {
-        const input = this._el.querySelector("input,textarea");
-        input && input.focus();
-      }, 0);
-    }
-  });
+  !this._isShow && patch(this._el, this._node, this._data);
+  this._isShow = true;
+  setTimeout(() => {
+    this.emit("show");
+  }, 0);
 });

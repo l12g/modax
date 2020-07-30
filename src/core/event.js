@@ -1,38 +1,38 @@
-import { isFunction, isPromise, isBoolean, isString, isUnDef } from "./utils";
 import { close, last, remove } from "../manager";
+import { isBoolean, isFunction, isPromise } from "./utils";
 const key = "__mx-evt";
 
-function handleAction({ _index, _onclick }) {
-  if (!isFunction(_onclick)) {
+function handleAction(action) {
+  const updateAction = () => {
+    this._actions = [...this._actions];
+  };
+  const { handler, id } = action;
+  const isDefaultAction =
+    action === this._okAction || action === this._cancelAction;
+
+  if (!isFunction(handler) && isDefaultAction) {
+    close(this._id);
     return;
   }
-  let action = isUnDef(_index) ? null : this._actions[_index];
-  const res = _onclick.call(this, this._inputVal);
+  const res = handler.call(this, this._inputVal);
   if (isPromise(res)) {
-    if (action) {
-      action.loading = true;
-    }
+    action.loading = true;
     res
-      .then(
-        (isClose) => {
-          isBoolean(isClose) ? isClose && close(this._id) : close(this._id);
-        },
-        () => {
-          if (action) {
-            action.loading = false;
-          }
-        }
-      )
-      .catch(() => {
-        if (action) {
-          action.loading = false;
-        }
-        // action.loading = false;
+      .then((isClose) => {
+        action.loading = false;
+        isBoolean(isClose) ? isClose && close(this._id) : close(this._id);
+        updateAction();
+      })
+      .finally(() => {
+        action.loading = false;
+        updateAction();
       });
   } else {
-    isBoolean(res) && res && close(this._id);
+    isBoolean(res)
+      ? res && close(this._id)
+      : isDefaultAction && close(this._id);
   }
-  this._actions = [...this._actions];
+  updateAction();
 }
 
 document.addEventListener("keydown", (evt) => {
@@ -51,15 +51,17 @@ export default function initEvent() {
   }
   const handleClick = (evt) => {
     evt.stopPropagation();
-    if (
-      evt.target.className === "mx-overlay" &&
-      this._shadowClose &&
-      this._isShow
-    ) {
+    this.emit("click", evt);
+    const { classList } = evt.target;
+    if (classList.contains("mx-overlay") && this._shadowClose && this._isShow) {
       close(this._id);
       return;
     }
-    handleAction.call(this, evt.target);
+    if (classList.contains("mx__btn") || classList.contains("mx-toast__btn")) {
+      const { id } = evt.target.dataset;
+      const action = this._actions.find((o) => o.id === id);
+      handleAction.call(this, action);
+    }
   };
   const handleAniend = (evt) => {
     if (evt.target === this._el) {
@@ -70,6 +72,7 @@ export default function initEvent() {
         // 如果手动调用instace.close方法，需要将实例从stack中移除
         remove(this);
         this.emit("close");
+        this.off() && this._pool.clear();
       }
     }
   };

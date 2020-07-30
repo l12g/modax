@@ -1,6 +1,6 @@
 import defaults from "./defaults";
-import { genEachKey } from "./utils";
 import { patch } from "./node";
+import { genEachKey } from "./utils";
 
 // proxy data 2 mdx instance
 function proxy(target, source) {
@@ -40,17 +40,20 @@ export default function initData() {
   const okAction = {
     text: defaults.okText,
     type: "ok",
-    click: closeHandler,
+    id: "action_ok",
+    handler: closeHandler,
     key: genEachKey(),
     visible: true,
   };
   const cancelAction = {
     text: defaults.cancelText,
     type: "cancel",
-    click: closeHandler,
+    id: "action_cancel",
+    handler: closeHandler,
     key: genEachKey(),
     visible: true,
   };
+
   const data = (this._data = {
     title: defaults.titleText,
     content: "",
@@ -72,5 +75,6 @@ export default function initData() {
     reactive.call(this, data, k, data[k]);
   }
   proxy(this, data);
+
   return data;
 }
