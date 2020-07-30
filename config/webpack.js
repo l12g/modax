@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlPlugin = require("html-webpack-plugin");
+console.log(path.resolve(__dirname, "../src"));
 module.exports = {
   entry: path.resolve(__dirname, "../src/index.js"),
   output: {
@@ -8,12 +9,27 @@ module.exports = {
     libraryExport: "default",
     libraryTarget: "umd",
   },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "../src"),
+    },
+  },
 
   module: {
     rules: [
       {
         test: /\.scss/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [
+          "style-loader",
+          "css-loader",
+          "postcss-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              prependData: `@import '~@/style/vars';`,
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpg)$/,
@@ -43,7 +59,7 @@ module.exports = {
 
   devServer: {
     port: 8099,
-    host: '0.0.0.0'
+    host: "0.0.0.0",
   },
   plugins: [
     new HtmlPlugin({
