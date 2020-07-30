@@ -3,10 +3,10 @@ $prefix: mx-loading;
 .#{$prefix}-wrapper {
   display: inline-block;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   padding: 20px;
   border-radius: 5px;
-  border-color: #fff;
+
   .mx-loading + span {
     margin-left: 10px;
     vertical-align: middle;
@@ -20,31 +20,34 @@ $prefix: mx-loading;
   font-size: 0;
   line-height: 0;
   position: relative;
-  box-sizing: border-box;
-  animation: mx-spin 1s infinite linear;
   vertical-align: middle;
-  span {
-    transform: translateY(50%);
+  color: inherit;
+  box-sizing: border-box;
+  padding: 2px;
+  animation: mx-spin 0.8s infinite linear;
+  svg {
+    width: 100%;
+    height: 100%;
     position: absolute;
     left: 0;
     top: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    box-sizing: border-box;
-    &::after {
-      box-sizing: border-box;
-      display: inline-block;
-      position: absolute;
-      content: "";
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 50%;
-      border: solid 2px #888;
-      border-color: inherit;
-      transform: translateY(-50%);
+    circle {
+      stroke: currentColor;
+      stroke-dasharray: 18px 100000000;
     }
   }
+
+  // &::after {
+  //   position: absolute;
+  //   left: 0;
+  //   right: 0;
+  //   top: 0;
+  //   bottom: 0;
+  //   content: "";
+  //   border: solid 1px currentColor;
+  //   border-radius: 50%;
+  //   border-left-color: transparent;
+  //   border-top-color: transparent;
+  //   animation: mx-spin 0.8s infinite linear;
+  // }
 }

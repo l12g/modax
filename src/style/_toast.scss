@@ -38,14 +38,14 @@ $prefix: mx-toast;
 
 .#{$prefix} {
   text-align: center;
-  padding: 0.2rem 0;
+  padding-bottom: 5px;
   overflow: hidden;
   animation: mx-slide-down 0.2s;
   transform-origin: center;
 
   @at-root &__content {
-    padding: 0.5rem 1rem;
-    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.8);
     color: #fff;
     border-radius: 2px;
     display: inline-block;
@@ -54,9 +54,10 @@ $prefix: mx-toast;
   }
   @at-root &__btns {
     list-style: none;
-    margin: 0 0 0 0.5rem;
-    padding: 0 0 0 0.5rem;
-    display: inline-block;
+    margin: 0 0 0 10px;
+    padding: 0 0 0 10px;
+    display: inline-flex;
+    align-items: center;
     border-left: solid 1px lighten(#000, 60);
     &:empty {
       display: none;
@@ -64,15 +65,29 @@ $prefix: mx-toast;
     li {
       color: darken(#fff, 20);
       pointer-events: all;
-      margin-left: 0.1rem;
-      display: inline-block;
+      margin-left: 5px;
+      display: inline-flex;
+      align-items: center;
       cursor: pointer;
       line-height: 100%;
       position: relative;
       z-index: 2;
-      transform: scale(0.85);
+      font-size: 0.9rem;
+      vertical-align: middle;
+      &[data-disabled="true"] {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+      * {
+        pointer-events: none;
+      }
+      .mx-loading {
+        width: 10px;
+        height: 10px;
+        margin-right: 5px;
+      }
       &:not(:last-child) {
-        margin-right: 0.2rem;
+        margin-right: 2px;
       }
       &:hover {
         color: #fff;

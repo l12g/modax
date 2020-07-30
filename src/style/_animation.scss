@@ -37,6 +37,6 @@ $prefix: mx;
 
 @keyframes #{$prefix}-spin {
   to {
-    transform: rotate(1turn);
+    transform: rotate(1turn) translateZ(0);
   }
 }

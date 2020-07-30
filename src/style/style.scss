@@ -2,10 +2,15 @@
 @import "./overlay";
 @import "./toast";
 @import "./loading";
-@import "./vars";
+
+:root {
+  --mx-main-color: #{$color};
+  --mx-success-color: #{$success-color};
+  --mx-danger-color: #{$danger-color};
+  --mx-font-size: #{$base-font-size};
+}
 
 $prefix: mx;
-
 .#{$prefix}--hide {
   animation: #{$prefix}-fade-out 0.2s forwards ease-in !important;
   .#{$prefix} {
@@ -15,9 +20,9 @@ $prefix: mx;
 
 .#{$prefix} {
   background-color: #fff;
-  width: 400px;
+  width: 30rem;
   display: inline-flex;
-  border-radius: 5px;
+  border-radius: $radius;
   text-align: left;
   padding: 1rem;
   vertical-align: middle;
@@ -26,8 +31,8 @@ $prefix: mx;
   flex-direction: column;
   margin: 20px 0;
   box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.1);
-  border: solid 1px darken($color: #fff, $amount: 10);
   transform: translateZ(0);
+  overflow: hidden;
   @at-root &__body {
     flex-grow: 1;
   }
@@ -39,7 +44,7 @@ $prefix: mx;
   @at-root &__content-icon {
     width: auto;
     margin-right: 1rem;
-    color: $color;
+    color: var(--mx-main-color);
     + .mx_content-raw {
       padding-top: 12px;
     }
@@ -48,16 +53,27 @@ $prefix: mx;
     flex: 1;
   }
   @at-root &__title {
-    padding: 0.5rem 0;
-    padding-top: 0;
     color: #888;
-    // border-bottom: solid 0.01rem darken($color: #fff, $amount: 5);
   }
   @at-root &__footer {
-    // border-top: solid .01rem darken($color: #fff, $amount: 5);
     padding: 0.5rem 0;
     padding-bottom: 0;
     text-align: right;
+  }
+  @at-root &__footer--block {
+    display: flex;
+    margin: -1rem;
+    margin-top: 0;
+    padding: 0;
+    position: relative;
+
+    .mx__btn {
+      flex: 1;
+      text-align: center;
+      justify-content: center;
+      margin: 0;
+      border-radius: 0;
+    }
   }
 
   @at-root &__prompt {
@@ -92,18 +108,41 @@ $prefix: mx;
     background-color: #fff;
     outline: none;
     border: none;
-    padding: 0.8rem 1.6rem;
+    padding: 0.6rem 1.4rem;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    outline: none;
     margin-left: 5px;
     transition: background 0.2s;
-    border-radius: 5px;
+    border-radius: $radius;
     vertical-align: middle;
     line-height: 100%;
     font-size: 1rem;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*点击高亮的颜色*/
+    position: relative;
+    overflow: hidden;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    user-select: none;
+    &::after {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: #000;
+      opacity: 0;
+      transition: opacity 0.2s;
+      content: "";
+    }
+    &:hover {
+      &::after {
+        opacity: 0.05;
+      }
+    }
+    &:active {
+      &::after {
+        opacity: 0.1;
+      }
+    }
     * {
       pointer-events: none;
     }
@@ -111,47 +150,21 @@ $prefix: mx;
       margin-right: 5px;
       width: 0.8rem;
       height: 0.8rem;
-      border-color: darken(#fff, 2);
-      span::after {
-        border-color: inherit;
-        border-width: 1px;
-      }
+      border-width: 1px;
     }
     &.disabled {
       opacity: 0.5;
       cursor: not-allowed;
       pointer-events: none;
     }
-    &--cancel {
-      &:hover {
-        background-color: darken(#fff, 5);
-      }
-      &:active {
-        background-color: darken(#fff, 10);
-      }
-    }
+
     &--ok,
     &--danger {
-      background-color: $color;
+      background-color: var(--mx-main-color);
       color: #fff;
-      .mx__loading {
-        border-color: #fff;
-      }
-      &:hover {
-        background-color: darken($color, 5);
-      }
-      &:active {
-        background-color: darken($color, 10);
-      }
     }
     &--danger {
-      background-color: $danger-color;
-      &:hover {
-        background-color: darken($danger-color, 5);
-      }
-      &:active {
-        background-color: darken($danger-color, 10);
-      }
+      background-color: var(--mx-danger-color);
     }
   }
 }
