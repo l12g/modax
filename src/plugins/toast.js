@@ -1,12 +1,11 @@
 import defaults from "../core/defaults";
-import { close } from "../manager";
 import addPlugin from "../core/plugin";
+import { close } from "../manager";
 
 let toastWrapper;
 function addClass() {}
 
-function plugin(text, ms = defaults.toastTime) {
-  this._title = text;
+function toastPlugin(ms = defaults.toastTime) {
   this._el.className = "mx-toast";
   this._el.style.cssText = "";
   this.ok(false);
@@ -53,15 +52,18 @@ const template = `<div class='mx-toast__content'>
     <span _text='title'></span>
     <ul class='mx-toast__btns'>
         <li class='mx-toast__btn' 
-        on-click='item.click'
+        _data-id='item.id'
+        _data-disabled='item.disabled||item.loading'
         _each='item of actions' 
-        _text='item.text' 
         _visible='item.visible'
-        _key='item.key'></li>
+        _key='item.key'>
+        <span class='mx-loading' _visible='!!item.loading'></span>
+        <span _text='item.text'></span>
+        </li>
     </ul>
 </div>
 `;
-addPlugin("toast", plugin, {
+addPlugin("toast", toastPlugin, {
   template,
 });
 addPlugin("middle", middle);

@@ -1,16 +1,16 @@
 /**
  * plugin for modax
- * 
+ *
  */
 
-import { isString, isFunction } from "./utils";
 import { parse } from "../core/node";
 import Modax from "./instance";
+import { isFunction, isString } from "./utils";
 
 const installedPlugins = {};
 export default function addPlugin(pluginName, plugin, pluginOpt = {}) {
   if (installedPlugins[pluginName]) {
-    console.error(`plugin [${pluginName}] has been installed!`);
+    console.warn(`plugin-name [${pluginName}] has been used!`);
     return;
   }
   installedPlugins[pluginName] = true;
