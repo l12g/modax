@@ -1,6 +1,6 @@
 {
   "name": "modax",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "description": "lightweight modal toolkit for web",
   "main": "dist/modax.js",
   "homepage": "https://voidshub.github.io/modax",
